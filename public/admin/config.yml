@@ -1,8 +1,8 @@
 backend:
-  name: github
-  repo: hmhss/hmhss.github.io
+  name: git-gateway
   branch: main
-  base_url: https://glittery-pegasus-47d53a.netlify.app
+  # This is REQUIRED because your site is on GitHub Pages, but Auth is on Netlify.
+  site_domain: glittery-pegasus-47d53a.netlify.app
   
 # local_backend: true
 
