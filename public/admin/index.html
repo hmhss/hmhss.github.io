@@ -2,6 +2,12 @@
 <html>
 <head>
   <meta charset="utf-8" />
+  <script>
+    // Redirect to Netlify domain for admin access to avoid CORS/Identity issues
+    if (window.location.hostname === "hmhss.github.io") {
+      window.location.href = "https://glittery-pegasus-47d53a.netlify.app/admin/";
+    }
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Content Manager</title>
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" data-site-url="https://glittery-pegasus-47d53a.netlify.app"></script>
