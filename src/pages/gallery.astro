@@ -1,0 +1,55 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BackgroundAnimations from '../components/BackgroundAnimations.astro';
+
+// Placeholder data for gallery images
+// In a real scenario, these could be local images or URLs from a CDN
+const galleryImages = [
+  { src: 'https://placehold.co/600x400/1e3a8a/ffffff?text=School+Building', caption: 'Main School Building' },
+  { src: 'https://placehold.co/600x400/1e3a8a/ffffff?text=Science+Lab', caption: 'Physics Laboratory' },
+  { src: 'https://placehold.co/600x400/1e3a8a/ffffff?text=Library', caption: 'School Library' },
+  { src: 'https://placehold.co/600x400/1e3a8a/ffffff?text=Sports+Day', caption: 'Annual Sports Day' },
+  { src: 'https://placehold.co/600x400/1e3a8a/ffffff?text=Classroom', caption: 'Smart Classroom' },
+  { src: 'https://placehold.co/600x400/1e3a8a/ffffff?text=Auditorium', caption: 'School Auditorium' },
+];
+---
+
+<Layout title="Gallery">
+  <BackgroundAnimations variant="co-curricular" />
+  <div class="max-w-6xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8 text-blue-900 text-center">Photo Gallery</h1>
+    
+    <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+      Glimpses of life at Hebron Matriculation Higher Secondary School. From academic achievements to cultural events and sports.
+    </p>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {galleryImages.map((img) => (
+        <div class="group relative overflow-hidden rounded-lg shadow-sm border border-gray-100 aspect-video bg-gray-100">
+          <img 
+            src={img.src} 
+            alt={img.caption} 
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+            <p class="text-white p-4 font-bold">{img.caption}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-16 bg-blue-50 p-8 rounded-lg text-center">
+      <h2 class="text-2xl font-bold text-blue-900 mb-4">Watch Our Videos</h2>
+      <p class="text-gray-700 mb-6">
+        Visit our YouTube channel for video highlights of annual days, sports events, and more.
+      </p>
+      <a href="#" class="inline-flex items-center text-red-600 font-bold hover:text-red-700">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+           <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+        </svg>
+        Visit YouTube Channel
+      </a>
+    </div>
+  </div>
+</Layout>

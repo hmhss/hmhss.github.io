@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('blog');
+  return blogEntries.map(entry => ({
+    params: { slug: entry.slug }, props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<Layout title={entry.data.title}>
+  <article class="max-w-3xl mx-auto px-4">
+    <div class="mb-8 border-b border-gold/20 pb-8">
+      <div class="flex gap-2 mb-4">
+        {entry.data.tags.map(tag => (
+          <span class="bg-cream text-burgundy text-xs px-2 py-1 rounded-full font-semibold uppercase tracking-wide">{tag}</span>
+        ))}
+      </div>
+      <h1 class="text-4xl font-bold text-burgundy mb-4">{entry.data.title}</h1>
+      <div class="text-gray-500">
+        {entry.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+        {entry.data.author && <span class="mx-2">•</span>}
+        {entry.data.author && <span>By {entry.data.author}</span>}
+      </div>
+    </div>
+    
+    <div class="prose lg:prose-lg mx-auto text-gray-700 prose-headings:text-burgundy prose-a:text-burgundy">
+      <Content />
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-gold/20">
+      <a href="/blog" class="text-burgundy font-bold hover:underline">&larr; Back to Blog</a>
+    </div>
+  </article>
+</Layout>

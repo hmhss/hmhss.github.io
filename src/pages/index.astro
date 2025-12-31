@@ -1,0 +1,169 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import Hero from '../components/Hero.astro';
+import StatsCounter from '../components/StatsCounter.astro';
+import BackgroundAnimations from '../components/BackgroundAnimations.astro';
+import stats from '../data/stats.yml';
+
+const currentYear = new Date().getFullYear();
+const yearsInEducation = currentYear - stats.startYear;
+
+const allAnnouncements = await getCollection('announcements', ({ data }) => {
+  return !data.draft;
+});
+
+// Sort: Pinned first, then by date desc
+const sortedAnnouncements = allAnnouncements.sort((a, b) => {
+  if (a.data.pinned && !b.data.pinned) return -1;
+  if (!a.data.pinned && b.data.pinned) return 1;
+  return b.data.date.valueOf() - a.data.date.valueOf();
+});
+
+const featuredAnnouncements = sortedAnnouncements.slice(0, 5);
+
+const allBlogPosts = await getCollection('blog', ({ data }) => {
+  return !data.draft;
+});
+const sortedBlogPosts = allBlogPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
+---
+
+<Layout title="Home">
+  <BackgroundAnimations variant="home" />
+  <!-- Hero Section -->
+  <Hero />
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 md:-mt-16 relative z-20">
+    <!-- Quick Links -->
+    <section class="mb-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="bg-white p-8 rounded-lg text-center hover:shadow-md transition-shadow border-2 border-burgundy/20">
+      <h3 class="text-2xl font-bold text-burgundy mb-2">Academics</h3>
+      <p class="text-gray-700 mb-4">Discover our comprehensive curriculum and academic excellence.</p>
+      <a href="/academics" class="text-brown font-bold hover:text-burgundy hover:underline">Learn More &rarr;</a>
+    </div>
+    <div class="bg-dark-brown p-8 rounded-lg text-center hover:shadow-md transition-shadow border-2 border-dark-brown">
+      <h3 class="text-2xl font-bold text-cream mb-2">Admissions</h3>
+      <p class="text-cream/90 mb-4">Join our community. Check requirements and apply today.</p>
+      <a href="/admissions" class="text-gold font-bold hover:text-white hover:underline">Apply Now &rarr;</a>
+    </div>
+    <div class="bg-white p-8 rounded-lg text-center hover:shadow-md transition-shadow border-2 border-gold/30">
+      <h3 class="text-2xl font-bold text-brown mb-2">Facilities</h3>
+      <p class="text-gray-700 mb-4">Explore our state-of-the-art labs, library, and sports grounds.</p>
+      <a href="/facilities" class="text-brown font-bold hover:text-burgundy hover:underline">View Facilities &rarr;</a>
+    </div>
+  </section>
+
+  <!-- Welcome & Why Choose Us Section -->
+  <section class="mb-20">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+      <div class="space-y-6">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Welcome to Hebron</h2>
+        <div class="w-20 h-1 bg-gold rounded"></div>
+        <p class="text-lg text-gray-700 leading-relaxed">
+          For decades, Hebron Matriculation Higher Secondary School has been a beacon of knowledge and character building. We combine traditional values with modern teaching methodologies to ensure every student reaches their full potential.
+        </p>
+        <p class="text-lg text-gray-700 leading-relaxed">
+          Our commitment extends beyond academics to holistic development, fostering creativity, discipline, and leadership in a nurturing environment.
+        </p>
+        <a href="/about" class="inline-block px-6 py-3 bg-burgundy text-cream font-semibold rounded hover:bg-dark-brown transition-colors">
+          Know About Our School
+        </a>
+      </div>
+      <div class="relative h-[400px] rounded-2xl overflow-hidden shadow-xl group border-4 border-cream">
+        <div class="absolute inset-0 bg-gray-200 animate-pulse"></div>
+        <img 
+          src="https://placehold.co/800x600/432818/ffe6a7?text=School+Community" 
+          alt="School Community" 
+          class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+          loading="lazy"
+        />
+      </div>
+    </div>
+
+    <!-- Unique Features Grid -->
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">What Makes Us Unique</h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">Providing the best environment for your child's growth</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <!-- Feature 1: Alumni -->
+      <StatsCounter target={stats.alumni} label="Proud Alumni" suffix="+">
+        <svg slot="icon" class="w-10 h-10 text-burgundy group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+        </svg>
+      </StatsCounter>
+
+      <!-- Feature 2: Students -->
+      <StatsCounter target={stats.students} label="Students Enrolled" suffix="+">
+        <svg slot="icon" class="w-10 h-10 text-burgundy group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+      </StatsCounter>
+
+      <!-- Feature 3: Teachers -->
+      <StatsCounter target={stats.teachers} label="Expert Teachers" suffix="+">
+        <svg slot="icon" class="w-10 h-10 text-burgundy group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+        </svg>
+      </StatsCounter>
+
+      <!-- Feature 4: Years in Education -->
+      <StatsCounter target={yearsInEducation} label="Years in Education">
+        <svg slot="icon" class="w-10 h-10 text-burgundy group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+        </svg>
+      </StatsCounter>
+    </div>
+  </section>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+    <!-- Announcements -->
+    <section>
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-bold text-burgundy">Announcements</h2>
+        <a href="/announcements" class="text-brown font-medium hover:text-burgundy hover:underline">View All</a>
+      </div>
+      <div class="space-y-4">
+        {featuredAnnouncements.length > 0 ? featuredAnnouncements.map((post) => (
+          <a href={`/announcements/${post.slug}`} class={`block p-6 rounded-lg border transition-shadow hover:shadow-md ${post.data.pinned ? 'bg-cream border-gold' : 'bg-white border-gray-100 hover:border-gold/30'}`}>
+            <div class="flex justify-between items-start">
+              <div>
+                {post.data.pinned && <span class="bg-burgundy text-cream text-xs px-2 py-1 rounded-full uppercase font-bold mb-2 inline-block">Pinned</span>}
+                <h3 class="text-xl font-bold text-gray-900 group-hover:text-burgundy transition-colors">{post.data.title}</h3>
+                <p class="text-gray-600 mt-2 line-clamp-2">{post.data.summary}</p>
+              </div>
+              <div class="text-center ml-4 min-w-[60px]">
+                <div class="text-2xl font-bold text-burgundy">{post.data.date.getDate()}</div>
+                <div class="text-sm text-brown uppercase">{post.data.date.toLocaleString('default', { month: 'short' })}</div>
+              </div>
+            </div>
+          </a>
+        )) : <p class="text-gray-500">No active announcements at this time.</p>}
+      </div>
+    </section>
+
+    <!-- Blog -->
+    <section>
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-bold text-burgundy">Latest News</h2>
+        <a href="/blog" class="text-brown font-medium hover:text-burgundy hover:underline">View All</a>
+      </div>
+      <div class="grid gap-6">
+        {sortedBlogPosts.length > 0 ? sortedBlogPosts.map((post) => (
+          <Card
+            title={post.data.title}
+            href={`/blog/${post.slug}`}
+            date={post.data.date}
+            body={post.data.summary}
+            tag={post.data.tags[0]}
+          />
+        )) : <p class="text-gray-500">No news posts yet.</p>}
+      </div>
+    </section>
+  </div>
+  </div>
+</Layout>

@@ -1,0 +1,86 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import BackgroundAnimations from '../../components/BackgroundAnimations.astro';
+import { getCollection } from 'astro:content';
+
+const allAnnouncements = await getCollection('announcements', ({ data }) => {
+  return !data.draft;
+});
+// Sort: Pinned first, then by date desc
+const sortedAnnouncements = allAnnouncements.sort((a, b) => {
+  if (a.data.pinned && !b.data.pinned) return -1;
+  if (!a.data.pinned && b.data.pinned) return 1;
+  return b.data.date.valueOf() - a.data.date.valueOf();
+});
+
+const categories = ['All', 'Exam', 'Holiday', 'Event', 'General'];
+---
+
+<Layout title="Announcements">
+  <BackgroundAnimations variant="admissions" />
+  <div class="max-w-4xl mx-auto px-4">
+    <h1 class="text-4xl font-bold mb-8 text-burgundy">Announcements</h1>
+    
+    <!-- Filter -->
+    <div class="flex flex-wrap gap-2 mb-12" id="category-filters">
+      {categories.map((cat, index) => (
+        <button class={`filter-btn px-4 py-2 rounded-full text-sm font-bold transition-colors ${index === 0 ? 'bg-burgundy text-white active' : 'bg-cream text-brown hover:bg-gold/20'}`} data-filter={cat}>
+          {cat}
+        </button>
+      ))}
+    </div>
+
+    <div class="space-y-4" id="announcements-list">
+      {sortedAnnouncements.map((post) => (
+        <a href={`/announcements/${post.slug}`} class="block bg-white p-6 rounded-lg border border-gold/20 hover:shadow-md transition-shadow announcement-item" data-category={post.data.category}>
+          <div class="flex justify-between items-start">
+            <div class="flex-grow">
+              <div class="flex items-center gap-2 mb-2">
+                {post.data.pinned && <span class="bg-burgundy text-white text-xs px-2 py-1 rounded-full uppercase font-bold">Pinned</span>}
+                <span class="bg-cream text-burgundy text-xs px-2 py-1 rounded-full uppercase font-bold">{post.data.category}</span>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900">{post.data.title}</h3>
+              <p class="text-gray-600 mt-2 line-clamp-2">{post.data.summary}</p>
+            </div>
+            <div class="text-center ml-4 min-w-[60px] flex-shrink-0">
+              <div class="text-2xl font-bold text-burgundy">{post.data.date.getDate()}</div>
+              <div class="text-sm text-brown uppercase">{post.data.date.toLocaleString('default', { month: 'short' })}</div>
+              <div class="text-xs text-gray-400">{post.data.date.getFullYear()}</div>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const buttons = document.querySelectorAll('.filter-btn');
+  const items = document.querySelectorAll('.announcement-item');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Remove active class from all
+      buttons.forEach(b => {
+        b.classList.remove('bg-burgundy', 'text-white');
+        b.classList.add('bg-cream', 'text-brown');
+      });
+      // Add active class to clicked
+      btn.classList.remove('bg-cream', 'text-brown');
+      btn.classList.add('bg-burgundy', 'text-white');
+
+      const filter = btn.getAttribute('data-filter');
+
+      // Use HTMLElement to access style
+      items.forEach(i => {
+        const item = i as HTMLElement;
+        const category = item.getAttribute('data-category');
+        if (filter === 'All' || category === filter) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

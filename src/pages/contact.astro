@@ -1,0 +1,117 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BackgroundAnimations from '../components/BackgroundAnimations.astro';
+---
+
+<Layout title="Contact Us">
+  <BackgroundAnimations variant="contact" />
+  <div class="max-w-4xl mx-auto px-4">
+    <div class="mb-12">
+      <h1 class="text-4xl font-bold mb-4 text-burgundy">Contact Us</h1>
+      <p class="text-xl text-gray-600">We'd love to hear from you. Reach out to us for any queries regarding admissions, academics, or general information.</p>
+    </div>
+    
+    <div class="grid md:grid-cols-3 gap-8 mb-12">
+      <!-- Contact Info Column -->
+      <div class="md:col-span-1 space-y-6">
+        <!-- Address Card -->
+        <div class="bg-cream/30 p-6 rounded-2xl border border-gold/20 hover:border-gold/40 transition-colors">
+            <h3 class="text-lg font-bold text-burgundy mb-3 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" /></svg>
+                Visit Us
+            </h3>
+            <p class="text-gray-700 leading-relaxed text-sm">
+              Hebron Matriculation Higher Secondary School<br>
+              Pavalar Nagar,<br>
+              Nagercoil - 629002,<br>
+              Tamil Nadu, India
+            </p>
+        </div>
+
+        <!-- Contact Details Card -->
+        <div class="bg-cream/30 p-6 rounded-2xl border border-gold/20 hover:border-gold/40 transition-colors">
+            <h3 class="text-lg font-bold text-burgundy mb-3 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" /></svg>
+                Get in Touch
+            </h3>
+            <div class="space-y-3 text-sm">
+                <p class="flex flex-col text-gray-700">
+                    <span class="font-semibold text-brown text-xs uppercase tracking-wider mb-1">Phone</span> 
+                    <a href="tel:+914652225289" class="hover:text-burgundy transition-colors font-medium">+91 4652 225 289</a>
+                </p>
+                <div class="h-px bg-gold/10 w-full"></div>
+                <p class="flex flex-col text-gray-700">
+                    <span class="font-semibold text-brown text-xs uppercase tracking-wider mb-1">Email</span> 
+                    <a href="mailto:hebronngl@yahoo.com" class="hover:text-burgundy transition-colors font-medium">hebronngl@yahoo.com</a>
+                </p>
+            </div>
+        </div>
+
+         <!-- Hours Card -->
+        <div class="bg-cream/30 p-6 rounded-2xl border border-gold/20 hover:border-gold/40 transition-colors">
+            <h3 class="text-lg font-bold text-burgundy mb-3 flex items-center gap-2">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" /></svg>
+                Office Hours
+            </h3>
+            <div class="space-y-2 text-sm text-gray-700">
+                <p><span class="font-semibold block text-brown text-xs uppercase tracking-wider mb-1">Monday - Friday</span> 9:00 AM - 4:00 PM</p>
+                <p><span class="font-semibold block text-brown text-xs uppercase tracking-wider mb-1 mt-2">Saturday</span> 9:00 AM - 1:00 PM</p>
+            </div>
+        </div>
+      </div>
+
+      <!-- Form Section -->
+      <div class="md:col-span-2 bg-white rounded-2xl shadow-xl shadow-burgundy/5 border border-gold/10 p-8">
+        <h2 class="text-2xl font-bold text-burgundy mb-6">Send us a Message</h2>
+        <form class="space-y-6" action="mailto:hebronngl@yahoo.com" method="post" enctype="text/plain">
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label for="name" class="block text-gray-700 font-bold mb-2 text-xs uppercase tracking-wide">Name</label>
+              <input type="text" id="name" name="name" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-burgundy/20 focus:border-burgundy outline-none transition-all placeholder-gray-400" placeholder="Your Name" />
+            </div>
+            <div>
+              <label for="email" class="block text-gray-700 font-bold mb-2 text-xs uppercase tracking-wide">Email</label>
+              <input type="email" id="email" name="email" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-burgundy/20 focus:border-burgundy outline-none transition-all placeholder-gray-400" placeholder="john@example.com" />
+            </div>
+          </div>
+          <div>
+            <label for="subject" class="block text-gray-700 font-bold mb-2 text-xs uppercase tracking-wide">Subject</label>
+             <select id="subject" name="subject" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-burgundy/20 focus:border-burgundy outline-none transition-all text-gray-700">
+                <option>General Inquiry</option>
+                <option>Admissions</option>
+                <option>Academics</option>
+                <option>Other</option>
+             </select>
+          </div>
+          <div>
+            <label for="message" class="block text-gray-700 font-bold mb-2 text-xs uppercase tracking-wide">Message</label>
+            <textarea id="message" name="message" rows="6" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-burgundy/20 focus:border-burgundy outline-none transition-all placeholder-gray-400" placeholder="How can we help you?"></textarea>
+          </div>
+          <button type="submit" class="w-full md:w-auto bg-burgundy text-white font-bold py-3 px-8 rounded-lg hover:bg-brown transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 duration-200">
+            Send Message
+          </button>
+        </form>
+        <p class="text-xs text-gray-400 mt-6 text-center border-t border-gray-100 pt-4">
+          Note: This form will open your default email client.
+        </p>
+      </div>
+    </div>
+
+    <!-- Map Section -->
+    <div class="mb-20">
+      <h2 class="text-2xl font-bold text-burgundy mb-6">Find Us</h2>
+      <div class="rounded-3xl overflow-hidden shadow-xl border border-gold/20 h-[450px] relative group bg-gray-100">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d446.47185498441064!2d77.43043493101966!3d8.160380614224461!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b04f10402208461%3A0x48fcedeee0d1f0f6!2sHebron%20Matriculation%20Higher%20Secondary%20School!5e0!3m2!1sen!2sus!4v1767193639965!5m2!1sen!2sus" 
+          width="100%" 
+          height="100%" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade"
+          class="grayscale group-hover:grayscale-0 transition-all duration-700"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</Layout>

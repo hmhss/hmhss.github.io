@@ -1,0 +1,163 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BackgroundAnimations from '../components/BackgroundAnimations.astro';
+import images from '../data/images.yml';
+
+const majorActivities = [
+  {
+    title: "Sports & Athletics",
+    description: "Physical education is an integral part of our curriculum. We believe that a healthy body houses a healthy mind. Our students are trained by experienced physical directors and compete in various district and state-level tournaments.",
+    image: images.cocurricular_sports,
+    items: ["Volleyball", "Basketball", "Football", "Athletics", "Kho-Kho", "Kabaddi", "Badminton"]
+  },
+  {
+    title: "Arts & Culture",
+    description: "We provide a platform for students to express their creativity and artistic talents. From classical dance to painting, our students are encouraged to explore various art forms, fostering emotional and intellectual growth.",
+    image: images.cocurricular_arts,
+    items: ["Drawing & Painting", "Dance Club", "Music", "Cultural Events"]
+  },
+  {
+    title: "Service & Social Responsibility",
+    description: "Instilling values of community service and environmental stewardship is core to our mission. Through various clubs, students learn the importance of giving back to society and protecting our planet.",
+    image: images.cocurricular_service,
+    items: ["NSS (National Service Scheme)", "JRC (Junior Red Cross)", "Eco Club", "Road Safety Club"]
+  },
+  {
+    title: "Student Life & Houses",
+    description: "Our House system fosters a sense of belonging and healthy competition. Students are divided into four houses, competing in sports, cultural, and academic events throughout the year to win the coveted House Cup.",
+    image: images.cocurricular_houses,
+    items: ["Ruby House", "Sapphire House", "Emerald House", "Topaz House", "Inter-house Competitions"]
+  }
+];
+
+const minorActivities = [
+  {
+    title: "Academic & Skill Clubs",
+    description: "Fostering intellectual curiosity and critical thinking beyond textbooks.",
+    image: images.cocurricular_academic,
+    items: ["Science Club", "Math Club", "Quiz Club", "Debate Club", "Reading Club", "Chess Club"]
+  },
+  {
+    title: "Beyond the Classroom",
+    description: "Experiential learning through travel and exploration.",
+    image: images.cocurricular_tours,
+    items: ["Educational Tours", "Field Trips", "Industrial Visits", "Nature Walks"]
+  }
+];
+---
+
+<Layout title="Co-Curricular Activities">
+  <BackgroundAnimations variant="co-curricular" />
+  <div class="max-w-4xl mx-auto px-4">
+    <!-- Hero Section -->
+    <div class="mb-16">
+      <h1 class="text-4xl font-bold mb-6 text-burgundy">Beyond Academics</h1>
+      <p class="text-xl text-gray-600 max-w-3xl leading-relaxed">
+        At Hebron MHSS, education extends far beyond the four walls of the classroom. We offer a vibrant array of co-curricular activities designed to nurture every aspect of a child's personality - physical, creative, intellectual, and social.
+      </p>
+    </div>
+
+    <!-- Major Activities (Alternating Layout) -->
+    <div class="space-y-20 mb-20">
+      {majorActivities.map((activity, index) => (
+        <div class={`flex flex-col md:flex-row gap-8 md:gap-16 items-center ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
+          
+          <!-- Image Side -->
+          <div class="w-full md:w-1/2">
+            <div class="relative rounded-2xl overflow-hidden shadow-xl border border-gold/20 group">
+              <div class="absolute inset-0 bg-burgundy/10 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
+              <img 
+                src={activity.image} 
+                alt={activity.title} 
+                class="w-full h-[300px] md:h-[400px] object-cover transform group-hover:scale-105 transition-transform duration-700"
+              />
+              <!-- Decorative elements -->
+              <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-gold/10 rounded-full blur-xl z-0"></div>
+              <div class="absolute -top-4 -left-4 w-24 h-24 bg-burgundy/10 rounded-full blur-xl z-0"></div>
+            </div>
+          </div>
+
+          <!-- Content Side -->
+          <div class="w-full md:w-1/2 space-y-6">
+            <h2 class="text-3xl font-bold text-brown border-l-4 border-gold pl-4">{activity.title}</h2>
+            <p class="text-gray-600 text-lg leading-relaxed">
+              {activity.description}
+            </p>
+            
+            <div>
+              <h3 class="font-bold text-burgundy mb-3 uppercase tracking-wide text-sm">Activities & Clubs</h3>
+              <div class="flex flex-wrap gap-2">
+                {activity.items.map((item) => (
+                  <span class="px-4 py-2 bg-cream/50 text-brown rounded-lg border border-gold/20 font-medium text-sm hover:bg-cream hover:border-gold/50 transition-colors">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Additional Activities (Grid) -->
+    <div class="mb-20">
+      <div class="flex items-center gap-4 mb-10">
+        <h2 class="text-3xl font-bold text-burgundy">Additional Activities</h2>
+        <div class="h-px bg-gray-200 flex-1"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        {minorActivities.map((activity) => (
+          <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden flex flex-col md:flex-row hover:shadow-xl transition-shadow">
+            <div class="w-full md:w-2/5 h-48 md:h-auto relative">
+               <img 
+                src={activity.image} 
+                alt={activity.title} 
+                class="w-full h-full object-cover absolute inset-0"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent md:bg-gradient-to-r"></div>
+              <div class="absolute bottom-4 left-4 text-white font-bold text-xl md:hidden">{activity.title}</div>
+            </div>
+            
+            <div class="p-6 md:p-8 w-full md:w-3/5 flex flex-col justify-center">
+              <h3 class="hidden md:block text-2xl font-bold text-brown mb-3">{activity.title}</h3>
+              <p class="text-gray-600 mb-6">{activity.description}</p>
+              <ul class="space-y-2">
+                {activity.items.map((item) => (
+                  <li class="flex items-center gap-2 text-sm font-medium text-burgundy">
+                    <svg class="w-4 h-4 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+    
+    <!-- Call to Action -->
+    <div class="bg-burgundy rounded-3xl p-10 md:p-12 text-left text-white relative overflow-hidden mb-12">
+      <!-- Background Patterns -->
+      <div class="absolute top-0 left-0 w-full h-full opacity-10">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+      </div>
+      
+      <div class="relative z-10 max-w-2xl space-y-6">
+        <h2 class="text-3xl md:text-4xl font-bold">Encouraging Holistic Growth</h2>
+        <p class="text-cream/80 text-lg">
+          We believe every student has a unique talent waiting to be discovered. Join us to explore, create, and excel.
+        </p>
+
+      </div>
+    </div>
+  </div>
+</Layout>

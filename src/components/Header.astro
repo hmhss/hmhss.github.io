@@ -1,0 +1,107 @@
+---
+const navItems = [
+  { 
+    label: 'About', 
+    children: [
+      { href: '/about', label: 'About' },
+      { href: '/facilities', label: 'Facilities' }
+    ]
+  },
+  { 
+    label: 'Academics', 
+    children: [
+      { href: '/academics', label: 'Academics' },
+      { href: '/co-curricular', label: 'Co-Curricular' }
+    ]
+  },
+  { href: '/admissions', label: 'Admissions' },
+  { 
+    label: 'Community', 
+    children: [
+      { href: '/announcements', label: 'Announcements' },
+      { href: '/blog', label: 'Blog' },
+      { href: '/alumni', label: 'Alumni' }
+    ]
+  },
+  { href: '/contact', label: 'Contact' },
+];
+---
+
+<header class="bg-white shadow-sm sticky top-0 z-50">
+  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <a href="/" class="text-2xl md:text-3xl font-black tracking-[0.2em] uppercase text-transparent bg-clip-text bg-[linear-gradient(110deg,#6f1d1b_45%,#bb9457_50%,#6f1d1b_55%)] bg-[length:250%_100%] bg-[position:100%_0] hover:bg-[position:0%_0] transition-[background-position] duration-1000 ease-in-out active:scale-95 transform select-none" aria-label="Hebron MHSS Home">
+      HEBRON
+    </a>
+    
+    <!-- Desktop Menu -->
+    <nav class="hidden lg:flex space-x-6">
+      {navItems.map(item => (
+        item.children ? (
+          <div class="relative group">
+            <button class="flex items-center gap-1 text-gray-700 hover:text-burgundy font-medium transition-colors text-sm uppercase tracking-wide focus:outline-none py-2">
+              {item.label}
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 opacity-50 group-hover:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="absolute left-0 mt-0 w-48 bg-white rounded-lg shadow-xl py-2 hidden group-hover:block border border-gray-100 transform origin-top-left transition-all z-50">
+              {item.children.map(child => (
+                <a href={child.href} class="block px-4 py-2 text-sm text-gray-700 hover:bg-cream hover:text-burgundy transition-colors">
+                  {child.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a href={item.href} class="text-gray-700 hover:text-burgundy font-medium transition-colors text-sm uppercase tracking-wide py-2">
+            {item.label}
+          </a>
+        )
+      ))}
+    </nav>
+
+    <!-- Mobile Menu Button -->
+    <button id="menu-toggle" class="lg:hidden text-gray-700 focus:outline-none" aria-label="Toggle Menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden lg:hidden bg-white border-t overflow-y-auto max-h-[80vh]">
+    <nav class="flex flex-col p-4 space-y-2">
+      {navItems.map(item => (
+        item.children ? (
+          <div class="space-y-1">
+            <div class="text-burgundy font-bold text-sm uppercase tracking-wide pt-2 pb-1 border-b border-gray-100 mb-1">
+              {item.label}
+            </div>
+            <div class="pl-4 space-y-2 border-l-2 border-gold/20 ml-1">
+              {item.children.map(child => (
+                <a href={child.href} class="block text-gray-700 hover:text-burgundy font-medium py-1">
+                  {child.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a href={item.href} class="block text-gray-700 hover:text-burgundy font-bold text-sm uppercase tracking-wide py-2 border-b border-gray-50 last:border-0">
+            {item.label}
+          </a>
+        )
+      ))}
+    </nav>
+  </div>
+</header>
+
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  }
+</script>

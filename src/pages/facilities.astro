@@ -1,0 +1,227 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BackgroundAnimations from '../components/BackgroundAnimations.astro';
+import images from '../data/images.yml';
+
+const facilities = [
+  {
+    title: "Modern Science Laboratories",
+    description: "Equipped with modern apparatus and preserved specimens for hands-on learning in Physics, Chemistry, and Biology.",
+    images: [images.facility_science_lab, images.facility_science_lab_2, images.facility_science_lab_3],
+    span: "md:col-span-2 md:row-span-2",
+    color: "from-burgundy/90 to-brown/90"
+  },
+  {
+    title: "State-of-the-Art Computer Lab",
+    description: "Fully equipped with high-speed internet and latest software for digital age readiness.",
+    images: [images.facility_computer_lab, images.facility_computer_lab_2, images.facility_computer_lab_3],
+    span: "md:col-span-1 md:row-span-2",
+    color: "from-brown/90 to-burgundy/90"
+  },
+  {
+    title: "Extensive Library",
+    description: "A knowledge hub with 28,000+ books, journals, and magazines.",
+    images: [images.facility_library, images.facility_library_2],
+    span: "md:col-span-1 md:row-span-1",
+    color: "from-gold/90 to-brown/90"
+  },
+  {
+    title: "Smart Classrooms",
+    description: "Interactive learning with smart technology and projectors.",
+    images: [images.facility_smart_class, images.facility_smart_class_2],
+    span: "md:col-span-2 md:row-span-1",
+    color: "from-burgundy/80 to-gold/80"
+  },
+  {
+    title: "Excellent Hall",
+    description: "A grand multi-purpose venue for assemblies, cultural events, and major school functions.",
+    images: [images.facility_hall, images.facility_hall_2],
+    span: "md:col-span-1 md:row-span-1",
+    color: "from-brown/90 to-gold/90"
+  },
+  {
+    title: "Spacious Campus",
+    description: "Expansive grounds that provide freedom for students to explore and grow.",
+    images: [images.facility_campus, images.facility_campus_2],
+    span: "md:col-span-2 md:row-span-1",
+    color: "from-gold/80 to-burgundy/80"
+  }
+];
+---
+
+<Layout title="Facilities">
+  <BackgroundAnimations variant="facilities" />
+  <div class="max-w-4xl mx-auto px-4">
+    <!-- Hero Section -->
+    <div class="mb-12 pt-8">
+      <h1 class="text-4xl font-bold mb-6 text-burgundy">Facilities & Infrastructure</h1>
+      <p class="text-xl text-gray-600 max-w-3xl leading-relaxed">
+        Beyond academics, we provide an environment that nurtures growth. Our infrastructure is designed to inspire, protect, and empower every student.
+      </p>
+    </div>
+
+    <!-- Bento Grid Facilities Showcase -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[280px] mb-20">
+      {facilities.map((facility, index) => (
+        <div class={`relative group overflow-hidden rounded-2xl shadow-md ${facility.span} facility-card`} data-index={index}>
+          <!-- Carousel Container -->
+          <div class="absolute inset-0 carousel-container">
+            {facility.images.map((img, imgIndex) => (
+              <img 
+                src={img} 
+                alt={`${facility.title} - View ${imgIndex + 1}`} 
+                class={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${imgIndex === 0 ? 'opacity-100' : 'opacity-0'}`}
+              />
+            ))}
+          </div>
+          
+          <!-- Gradient Overlay -->
+          <div class={`absolute inset-0 bg-gradient-to-t ${facility.color} opacity-80 transition-opacity duration-300 group-hover:opacity-90 z-10`}></div>
+          
+          <!-- Content -->
+          <div class="absolute inset-0 p-8 flex flex-col justify-end text-white z-20">
+            <h3 class="text-2xl font-bold transition-transform duration-300 group-hover:-translate-y-1">
+              {facility.title}
+            </h3>
+            
+            <div class="max-h-0 overflow-hidden group-hover:max-h-48 transition-all duration-500 ease-out">
+              <div class="pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75">
+                <div class="h-1 w-12 bg-white/50 rounded-full mb-3"></div>
+                <p class="text-white/90 text-base leading-relaxed">
+                  {facility.description}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <script>
+      // Simple background carousel script
+      document.addEventListener('DOMContentLoaded', () => {
+        const cards = document.querySelectorAll('.facility-card');
+        
+        cards.forEach((card) => {
+          const images = card.querySelectorAll('.carousel-container img');
+          if (images.length <= 1) return;
+          
+          let currentIndex = 0;
+          
+          // Randomize start time slightly to avoid synchronized pulsing
+          const delay = 3000 + Math.random() * 2000;
+          
+          setInterval(() => {
+            // Fade out current
+            images[currentIndex].classList.remove('opacity-100');
+            images[currentIndex].classList.add('opacity-0');
+            
+            // Move to next
+            currentIndex = (currentIndex + 1) % images.length;
+            
+            // Fade in next
+            images[currentIndex].classList.remove('opacity-0');
+            images[currentIndex].classList.add('opacity-100');
+          }, delay);
+        });
+      });
+    </script>
+
+    <!-- Infrastructure & Campus - Split Panel Design -->
+    <div class="relative bg-white rounded-3xl overflow-hidden mb-20 border border-gold/10">
+      <div class="absolute inset-0 bg-cream/20 pointer-events-none"></div>
+      <div class="relative z-10 grid md:grid-cols-2">
+        <div class="p-10 md:p-12 flex flex-col justify-center">
+          <h2 class="text-3xl font-bold text-burgundy mb-8">Campus Infrastructure</h2>
+          
+          <div class="space-y-8">
+            <div class="flex gap-5">
+              <div class="flex-shrink-0 w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-burgundy font-bold text-lg">
+                01
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-brown mb-2">6 Blocks | 55+ classrooms</h3>
+                <p class="text-gray-600 leading-relaxed">
+                  Designed for optimal learning with ample natural light, ventilation, and movement space.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex gap-5">
+              <div class="flex-shrink-0 w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-burgundy font-bold text-lg">
+                02
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-brown mb-2">Excellent Hall</h3>
+                <p class="text-gray-600 leading-relaxed">
+                  A grand multi-purpose venue for assemblies, cultural events, and major school functions.
+                </p>
+              </div>
+            </div>
+            
+            <div class="flex gap-5">
+               <div class="flex-shrink-0 w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-burgundy font-bold text-lg">
+                03
+              </div>
+              <div>
+                 <h3 class="text-xl font-bold text-brown mb-2">Spacious Campus</h3>
+                 <p class="text-gray-600 leading-relaxed">
+                    Expansive grounds that provide freedom for students to explore and grow.
+                 </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="relative h-[400px] md:h-auto">
+          <img 
+            src={images.facility_campus} 
+            alt="Hebron Campus" 
+            class="absolute inset-0 w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-burgundy/10 mix-blend-multiply"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Student Support & Safety - Dark Mode Section -->
+    <div class="bg-burgundy text-white rounded-3xl p-10 md:p-16 mb-20 relative overflow-hidden">
+      <!-- Decorative circles -->
+      <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+      <div class="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/3"></div>
+
+      <div class="relative z-10 grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl font-bold mb-6">Safe & Supportive Environment</h2>
+          <p class="text-white/80 text-lg leading-relaxed mb-8">
+            We believe that a safe environment is the foundation of effective learning. Our comprehensive security and support systems ensure peace of mind for parents and students alike.
+          </p>
+          <div class="flex gap-4">
+             <div class="bg-white/10 backdrop-blur-sm px-5 py-2.5 rounded-full border border-white/20 text-sm font-medium">
+                100+ Cameras
+             </div>
+             <div class="bg-white/10 backdrop-blur-sm px-5 py-2.5 rounded-full border border-white/20 text-sm font-medium">
+                24/7 Security
+             </div>
+          </div>
+        </div>
+
+        <div class="grid gap-6">
+          <div class="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/10 hover:bg-white/20 transition-colors duration-300">
+            <h3 class="text-xl font-bold text-gold mb-2">Student Counseling</h3>
+            <p class="text-white/90 text-sm leading-relaxed">
+              Dedicated professional support for mental and emotional well-being, providing guidance and a safe space for every student.
+            </p>
+          </div>
+
+          <div class="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/10 hover:bg-white/20 transition-colors duration-300">
+            <h3 class="text-xl font-bold text-gold mb-2">Surveillance Network</h3>
+            <p class="text-white/90 text-sm leading-relaxed">
+              State-of-the-art surveillance system with over 100 cameras monitoring strategic locations across the campus.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</Layout>

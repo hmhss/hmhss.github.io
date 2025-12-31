@@ -1,0 +1,103 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BackgroundAnimations from '../components/BackgroundAnimations.astro';
+import images from '../data/images.yml';
+---
+
+<Layout title="About Us">
+  <BackgroundAnimations />
+  <div class="max-w-4xl mx-auto relative z-10 px-4 py-8">
+    <h1 class="text-4xl font-bold mb-8 text-burgundy">About Hebron MHSS</h1>
+    
+    <div class="prose lg:prose-lg text-gray-700 max-w-none">
+      <p class="lead text-xl text-gray-600 mb-8">
+        Established with a vision to provide quality education, Hebron Matriculation Higher Secondary School has been serving the community of Nagercoil for decades, nurturing young minds into responsible citizens.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-8 my-12">
+        <div class="bg-cream p-8 rounded-lg border-2 border-burgundy/10 shadow-sm">
+          <h2 class="text-2xl font-bold text-burgundy mb-4 mt-0">Our Vision</h2>
+          <p class="mb-0">
+            To create a learning environment that fosters academic excellence, character development, and social responsibility, empowering students to face the challenges of the future with confidence.
+          </p>
+        </div>
+        <div class="bg-white p-8 rounded-lg border-2 border-gold/30 shadow-sm">
+          <h2 class="text-2xl font-bold text-brown mb-4 mt-0">Our Mission</h2>
+          <p class="mb-0">
+            To provide holistic education through a balanced curriculum, state-of-the-art facilities, and dedicated faculty, ensuring every student discovers and realizes their full potential.
+          </p>
+        </div>
+      </div>
+
+      <h2 class="text-3xl font-bold text-gray-900 mt-12 mb-6">Principal's Message</h2>
+      <blockquote class="border-l-4 border-burgundy pl-4 italic text-gray-600 bg-gray-50 py-4 pr-4 rounded-r-lg shadow-sm">
+        "Education is not just about academic grades; it is about shaping the character of a child. At Hebron, we believe in the holistic development of every student. We strive to provide an environment where children are encouraged to think, explore, and learn."
+      </blockquote>
+
+      <h2 class="text-3xl font-bold text-gray-900 mt-12 mb-8 border-b-2 border-gold/30 pb-2">Our History</h2>
+      
+      <div class="space-y-20">
+        <!-- Founding Section -->
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div class="order-2 md:order-1">
+            <p class="text-lg leading-relaxed mb-6">
+              Hebron Matriculation Higher Secondary School was founded in <strong>1986</strong> by <strong>Prof. S. Johnson</strong> and <strong>Prof. Angel Johnson</strong> with a clear educational vision rooted in values, discipline, and holistic development. From its inception, the founders believed that education should extend beyond academic instruction to encompass character formation, moral integrity, and the overall intellectual, social, and emotional development of children.
+            </p>
+            <p class="text-lg leading-relaxed">
+              Prof. S. Johnson was particularly committed to instilling strong ethical values and life skills in students, emphasizing that true education prepares young minds not only for examinations, but also for responsible citizenship and lifelong learning. This guiding philosophy continues to shape the school’s academic and co-curricular approach.
+            </p>
+          </div>
+          <div class="order-1 md:order-2">
+            <div class="relative group">
+              <div class="absolute -inset-2 bg-burgundy/10 rounded-xl transform rotate-2 group-hover:rotate-1 transition-transform duration-300"></div>
+              <img src={images.about_history_founders} alt="Founders Prof. S. Johnson and Prof. Angel Johnson" class="relative rounded-lg shadow-lg w-full h-auto object-cover aspect-[4/3] border-4 border-white" />
+            </div>
+            <p class="text-sm text-center text-gray-500 mt-3 italic">Founders Prof. S. Johnson & Prof. Angel Johnson</p>
+          </div>
+        </div>
+
+        <!-- Growth Section -->
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div class="order-1 md:order-2">
+            <div class="bg-cream/30 p-8 rounded-2xl border border-gold/20">
+              <p class="text-xl leading-relaxed font-medium text-burgundy/80">
+                The school grew steadily in stature and academic scope, reaching a significant milestone in <strong>1999</strong> with the graduation of its first batch of students, marking Hebron’s emergence as a trusted institution of secondary education in Nagercoil.
+              </p>
+            </div>
+          </div>
+          <div class="order-2 md:order-1">
+             <div class="relative group">
+              <div class="absolute -inset-2 bg-gold/10 rounded-xl transform -rotate-2 group-hover:-rotate-1 transition-transform duration-300"></div>
+              <img src={images.about_history_growth} alt="Hebron School Early Growth" class="relative rounded-lg shadow-lg w-full h-auto object-cover aspect-[4/3] border-4 border-white" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Administration Section -->
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div class="order-2 md:order-1">
+            <p class="text-lg leading-relaxed">
+              Since <strong>2013</strong>, the school has been administered by <strong>Dr. Nirmal Johnson</strong> and <strong>Mrs. Merina Nirmal</strong>. Prior to assuming administrative responsibilities at Hebron, Dr. Nirmal Johnson served as a professor, and Mrs. Merina Nirmal as a teacher, bringing with them strong academic foundations and firsthand classroom experience. Under their leadership, Hebron has continued to grow while remaining firmly anchored to its founding values.
+            </p>
+          </div>
+          <div class="order-1 md:order-2">
+            <div class="relative group">
+              <div class="absolute -inset-2 bg-brown/10 rounded-xl transform rotate-2 group-hover:rotate-1 transition-transform duration-300"></div>
+              <img src={images.about_history_current_admin} alt="Dr. Nirmal Johnson and Mrs. Merina Nirmal" class="relative rounded-lg shadow-lg w-full h-auto object-cover aspect-[4/3] border-4 border-white" />
+            </div>
+             <p class="text-sm text-center text-gray-500 mt-3 italic">Administrators Dr. Nirmal Johnson & Mrs. Merina Nirmal</p>
+          </div>
+        </div>
+
+        <!-- Today Section -->
+        <div class="bg-gray-50 rounded-2xl p-8 md:p-12 text-center">
+           <p class="text-lg md:text-xl leading-relaxed mb-8 max-w-3xl mx-auto">
+            Today, Hebron Matriculation Higher Secondary School serves over <strong>1,600 students</strong>, supported by more than <strong>80 teaching and non-teaching staff</strong>, and is strengthened by a community of over <strong>10,000 proud alumni</strong> across diverse professional fields. As the school continues to evolve with changing educational needs, it remains committed to nurturing well-rounded individuals prepared to excel academically and contribute meaningfully to society.
+          </p>
+          <img src={images.about_history_campus} alt="Hebron MHSS Campus Today" class="w-full h-64 md:h-96 object-cover rounded-xl shadow-lg border-4 border-white mx-auto" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+</Layout>

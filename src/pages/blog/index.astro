@@ -1,0 +1,78 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import BackgroundAnimations from '../../components/BackgroundAnimations.astro';
+import Card from '../../components/Card.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog', ({ data }) => {
+  return !data.draft;
+});
+const sortedPosts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Get all unique tags
+const allTags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
+---
+
+<Layout title="Blog & News">
+  <BackgroundAnimations variant="academics" />
+  <div class="max-w-4xl mx-auto px-4">
+    <h1 class="text-4xl font-bold mb-8 text-burgundy">School Blog & News</h1>
+    
+    <!-- Filter -->
+    <div class="flex flex-wrap gap-2 mb-12" id="tag-filters">
+      <button class="filter-btn active bg-burgundy text-white px-4 py-2 rounded-full text-sm font-bold transition-colors" data-filter="all">
+        All
+      </button>
+      {allTags.map((tag) => (
+        <button class="filter-btn bg-cream text-brown hover:bg-gold/20 px-4 py-2 rounded-full text-sm font-bold transition-colors" data-filter={tag}>
+          {tag}
+        </button>
+      ))}
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="posts-grid">
+      {sortedPosts.map((post) => (
+        <div class="post-item h-full" data-tags={JSON.stringify(post.data.tags)}>
+          <Card
+            title={post.data.title}
+            href={`/blog/${post.slug}`}
+            date={post.data.date}
+            body={post.data.summary}
+            tag={post.data.tags[0]}
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const buttons = document.querySelectorAll('.filter-btn');
+  const posts = document.querySelectorAll('.post-item');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Remove active class from all
+      buttons.forEach(b => {
+        b.classList.remove('bg-burgundy', 'text-white');
+        b.classList.add('bg-cream', 'text-brown');
+      });
+      // Add active class to clicked
+      btn.classList.remove('bg-cream', 'text-brown');
+      btn.classList.add('bg-burgundy', 'text-white');
+
+      const filter = btn.getAttribute('data-filter');
+
+      // Use HTMLElement to access style
+      posts.forEach(p => {
+        const post = p as HTMLElement;
+        const tags = JSON.parse(post.getAttribute('data-tags') || '[]');
+        if (filter === 'all' || tags.includes(filter)) {
+          post.style.display = 'block';
+        } else {
+          post.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

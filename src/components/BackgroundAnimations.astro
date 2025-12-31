@@ -1,0 +1,264 @@
+---
+interface Props {
+  variant?: 'about' | 'academics' | 'co-curricular' | 'facilities' | 'admissions' | 'contact' | 'home' | 'alumni';
+}
+
+const { variant = 'about' } = Astro.props;
+
+// Common animation classes - "Floating" animations removed to support static scroll-based movement
+const anims = {
+  float: '',
+  floatDelayed: '',
+  floatSlow: '',
+  spinSlow: 'animate-spin-slow',
+  pulseSlow: 'animate-pulse-slow',
+  twinkle: 'animate-twinkle',
+  twinkleDelayed: 'animate-twinkle-delayed'
+};
+
+// Icon definitions
+const icons = {
+  circle: `<circle cx="12" cy="12" r="8" />`,
+  pencil: `<path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>`,
+  gradCap: `<path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>`,
+  book: `<path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>`,
+  atom: `<path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" class="opacity-20"/><path d="M12 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" /><path d="M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93" />`,
+  star: `<path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>`,
+  globe: `<circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />`,
+  sparkle: `<path d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z"/>`,
+  
+  // Academics
+  microscope: `<path d="M6 18h12v2H6zm6-15a2 2 0 0 1 2 2v2.5l2 2.5V12h-2v-1.5l-1-1.25-1 1.25V12H9V9l2-2.5V5a2 2 0 0 1 2-2zM4 20v-2h16v2H4z"/>`,
+  pi: `<path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2h-2V7h-4v12h-2V7H8v12H6V7H4V7z"/>`,
+  computer: `<path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/>`,
+  dna: `<path d="M18.4 3.6c-1.3-1.3-3.4-1.3-4.7 0L12 5.3 10.3 3.6c-1.3-1.3-3.4-1.3-4.7 0s-1.3 3.4 0 4.7l1.7 1.7L5.6 11.7c-1.3 1.3-1.3 3.4 0 4.7s3.4 1.3 4.7 0L12 14.7l1.7 1.7c1.3 1.3 3.4 1.3 4.7 0s1.3-3.4 0-4.7L16.7 10l1.7-1.7c1.3-1.3 1.3-3.4 0-4.7z"/>`,
+  
+  // Co-curricular
+  palette: `<path d="M12 3a9 9 0 0 0 0 18c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm-1.5-5.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zm-3 2c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zm6-5c.83 0 1.5-.67 1.5-1.5S14.33 7.5 13.5 7.5 12 8.17 12 9s.67 1.5 1.5 1.5zm2.5 3c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5z"/>`,
+  music: `<path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>`,
+  trophy: `<path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1l2.33 4.08c.68 1.18 1.96 1.92 3.33 1.92h6.68c1.37 0 2.65-.74 3.33-1.92L21 8V7c0-1.1-.9-2-2-2zm-2 2.53L15.37 10H8.63L7 7.53V7h10v.53zM12 18c-3.7 0-6.93-2.16-8.5-5.5l1.65-.89c1.13 2.42 3.49 4.39 6.85 4.39s5.72-1.97 6.85-4.39l1.65.89C18.93 15.84 15.7 18 12 18z"/>`,
+  basketball: `<circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/><path d="M2 12a10 10 0 0 1 10-10"/><path d="M2 12c5.52 0 10 4.48 10 10"/><path d="M22 12c-5.52 0-10 4.48-10 10"/><path d="M2.5 8.5c2-1 4.5-1.5 7-1.5s5 .5 7 1.5"/><path d="M2.5 15.5c2 1 4.5 1.5 7 1.5s5-.5 7-1.5"/>`,
+  
+  // Facilities
+  flask: `<path d="M17 19c0 1.1-.9 2-2 2H9c-1.1 0-2-.9-2-2v-4.5l-3-5.5V5c0-1.1.9-2 2-2h12c1.1 0 2 .9 2 2v4l-3 5.5V19zM8.5 9l2.5 4.6V19h2v-5.4l2.5-4.6V5H8.5v4z"/>`,
+  bus: `<path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10zm3.5 1c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 6h14v5H5V6z"/>`,
+  building: `<path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>`,
+  
+  // Admissions
+  calendar: `<path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>`,
+  checklist: `<path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>`,
+  user: `<path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>`,
+  
+  // Contact
+  mail: `<path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>`,
+  phone: `<path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>`,
+  mapPin: `<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>`
+};
+
+// Configuration for each variant
+const configs = {
+  about: [
+    { icon: icons.pencil, color: 'text-burgundy', anim: anims.float, pos: 'top-[10%] left-[5%]', size: 'w-8 h-8 md:w-12 md:h-12 -rotate-12' },
+    { icon: icons.gradCap, color: 'text-gold', anim: anims.floatDelayed, pos: 'top-[20%] right-[10%]', size: 'w-10 h-10 md:w-16 md:h-16 rotate-12' },
+    { icon: icons.atom, color: 'text-burgundy', anim: anims.spinSlow, pos: 'bottom-[15%] right-[5%]', size: 'w-12 h-12 md:w-20 md:h-20' },
+    { icon: icons.globe, color: 'text-brown', anim: anims.float, pos: 'top-[60%] left-[8%]', size: 'w-10 h-10 md:w-14 md:h-14 rotate-6' },
+    
+    // Small scatter items
+    { icon: icons.star, color: 'text-gold', anim: anims.pulseSlow, pos: 'top-[15%] left-[25%]', size: 'w-4 h-4 md:w-6 md:h-6' },
+    { icon: icons.sparkle, color: 'text-burgundy', anim: anims.twinkle, pos: 'top-[45%] right-[20%]', size: 'w-3 h-3 md:w-5 md:h-5' },
+    { icon: icons.book, color: 'text-brown', anim: anims.floatSlow, pos: 'bottom-[30%] left-[15%]', size: 'w-6 h-6 md:w-8 md:h-8 -rotate-12' },
+    { icon: icons.star, color: 'text-gold/50', anim: anims.twinkleDelayed, pos: 'top-[80%] right-[35%]', size: 'w-2 h-2 md:w-4 md:h-4' },
+    { icon: icons.sparkle, color: 'text-burgundy/40', anim: anims.pulseSlow, pos: 'top-[5%] right-[40%]', size: 'w-4 h-4 md:w-6 md:h-6' },
+    { icon: icons.pencil, color: 'text-brown/30', anim: anims.float, pos: 'bottom-[10%] left-[40%]', size: 'w-5 h-5 md:w-7 md:h-7 rotate-45' },
+    { icon: icons.gradCap, color: 'text-gold/30', anim: anims.floatDelayed, pos: 'top-[35%] left-[60%]', size: 'w-4 h-4 md:w-6 md:h-6 -rotate-12' },
+    // Extra small items for density and jitter
+    { icon: icons.sparkle, color: 'text-gold/20', anim: anims.twinkle, pos: 'bottom-[40%] right-[45%]', size: 'w-2 h-2 md:w-3 md:h-3 rotate-45' },
+    { icon: icons.star, color: 'text-burgundy/20', anim: anims.pulseSlow, pos: 'top-[25%] left-[45%]', size: 'w-1 h-1 md:w-2 md:h-2 -rotate-12' },
+    { icon: icons.star, color: 'text-brown/20', anim: anims.twinkleDelayed, pos: 'bottom-[5%] left-[5%]', size: 'w-2 h-2 md:w-3 md:h-3 rotate-90' },
+  ],
+  academics: [
+    { icon: icons.book, color: 'text-burgundy', anim: anims.float, pos: 'top-[10%] left-[10%]', size: 'w-8 h-8 md:w-12 md:h-12' },
+    { icon: icons.microscope, color: 'text-gold', anim: anims.floatDelayed, pos: 'top-[25%] right-[8%]', size: 'w-10 h-10 md:w-16 md:h-16 rotate-6' },
+    { icon: icons.pi, color: 'text-brown', anim: anims.floatSlow, pos: 'top-[45%] left-[5%]', size: 'w-8 h-8 md:w-12 md:h-12 -rotate-12' },
+    { icon: icons.dna, color: 'text-gold', anim: anims.spinSlow, pos: 'bottom-[20%] left-[8%]', size: 'w-10 h-10 md:w-14 md:h-14' },
+    
+    // Small scatter items
+    { icon: icons.computer, color: 'text-burgundy', anim: anims.float, pos: 'bottom-[40%] right-[12%]', size: 'w-6 h-6 md:w-10 md:h-10' },
+    { icon: icons.atom, color: 'text-brown', anim: anims.pulseSlow, pos: 'top-[60%] right-[15%]', size: 'w-5 h-5 md:w-8 md:h-8' },
+    { icon: icons.star, color: 'text-gold/60', anim: anims.twinkle, pos: 'top-[15%] left-[30%]', size: 'w-3 h-3 md:w-5 md:h-5' },
+    { icon: icons.sparkle, color: 'text-burgundy/40', anim: anims.twinkleDelayed, pos: 'top-[35%] right-[30%]', size: 'w-4 h-4 md:w-6 md:h-6' },
+    { icon: icons.pi, color: 'text-brown/30', anim: anims.floatSlow, pos: 'bottom-[10%] right-[40%]', size: 'w-4 h-4 md:w-6 md:h-6 rotate-45' },
+    { icon: icons.book, color: 'text-gold/40', anim: anims.float, pos: 'top-[5%] left-[50%]', size: 'w-3 h-3 md:w-5 md:h-5' },
+    { icon: icons.microscope, color: 'text-burgundy/20', anim: anims.floatDelayed, pos: 'bottom-[30%] left-[40%]', size: 'w-5 h-5 md:w-8 md:h-8 -rotate-12' },
+    // Extra small items for density and jitter
+    { icon: icons.star, color: 'text-burgundy/20', anim: anims.pulseSlow, pos: 'top-[50%] right-[50%]', size: 'w-1 h-1 md:w-2 md:h-2 rotate-180' },
+    { icon: icons.sparkle, color: 'text-gold/20', anim: anims.twinkle, pos: 'bottom-[20%] left-[20%]', size: 'w-2 h-2 md:w-3 md:h-3 -rotate-45' },
+    { icon: icons.star, color: 'text-brown/20', anim: anims.twinkleDelayed, pos: 'top-[5%] right-[5%]', size: 'w-2 h-2 md:w-3 md:h-3 rotate-12' },
+  ],
+  'co-curricular': [
+    { icon: icons.palette, color: 'text-burgundy', anim: anims.float, pos: 'top-[15%] left-[8%]', size: 'w-8 h-8 md:w-12 md:h-12' },
+    { icon: icons.music, color: 'text-gold', anim: anims.floatDelayed, pos: 'top-[25%] right-[12%]', size: 'w-8 h-8 md:w-12 md:h-12 rotate-12' },
+    { icon: icons.trophy, color: 'text-brown', anim: anims.floatSlow, pos: 'top-[50%] left-[5%]', size: 'w-10 h-10 md:w-16 md:h-16 -rotate-6' },
+    { icon: icons.basketball, color: 'text-burgundy', anim: anims.spinSlow, pos: 'bottom-[25%] right-[8%]', size: 'w-10 h-10 md:w-14 md:h-14' },
+    
+    // Small scatter items
+    { icon: icons.star, color: 'text-gold', anim: anims.pulseSlow, pos: 'bottom-[15%] left-[20%]', size: 'w-4 h-4 md:w-6 md:h-6' },
+    { icon: icons.sparkle, color: 'text-brown/50', anim: anims.twinkle, pos: 'top-[10%] right-[25%]', size: 'w-3 h-3 md:w-5 md:h-5' },
+    { icon: icons.music, color: 'text-burgundy/30', anim: anims.float, pos: 'top-[40%] left-[30%]', size: 'w-4 h-4 md:w-6 md:h-6 rotate-45' },
+    { icon: icons.trophy, color: 'text-gold/20', anim: anims.floatDelayed, pos: 'bottom-[40%] left-[45%]', size: 'w-5 h-5 md:w-8 md:h-8 -rotate-12' },
+    { icon: icons.palette, color: 'text-brown/40', anim: anims.floatSlow, pos: 'top-[5%] left-[60%]', size: 'w-3 h-3 md:w-5 md:h-5' },
+    { icon: icons.star, color: 'text-burgundy/30', anim: anims.twinkleDelayed, pos: 'bottom-[5%] right-[35%]', size: 'w-2 h-2 md:w-4 md:h-4' },
+    // Extra small items for density and jitter
+    { icon: icons.sparkle, color: 'text-gold/20', anim: anims.twinkleDelayed, pos: 'bottom-[30%] right-[20%]', size: 'w-2 h-2 md:w-3 md:h-3 rotate-90' },
+    { icon: icons.star, color: 'text-burgundy/20', anim: anims.pulseSlow, pos: 'top-[20%] left-[50%]', size: 'w-1 h-1 md:w-2 md:h-2 -rotate-12' },
+    { icon: icons.star, color: 'text-brown/20', anim: anims.twinkle, pos: 'top-[60%] left-[15%]', size: 'w-2 h-2 md:w-3 md:h-3 rotate-45' },
+  ],
+  facilities: [
+    { icon: icons.building, color: 'text-burgundy', anim: anims.float, pos: 'top-[12%] left-[10%]', size: 'w-10 h-10 md:w-16 md:h-16' },
+    { icon: icons.bus, color: 'text-gold', anim: anims.floatDelayed, pos: 'top-[30%] right-[8%]', size: 'w-8 h-8 md:w-12 md:h-12' },
+    { icon: icons.flask, color: 'text-brown', anim: anims.floatSlow, pos: 'top-[45%] left-[6%]', size: 'w-8 h-8 md:w-12 md:h-12 rotate-12' },
+    { icon: icons.computer, color: 'text-burgundy', anim: anims.float, pos: 'bottom-[35%] right-[10%]', size: 'w-8 h-8 md:w-12 md:h-12' },
+    
+    // Small scatter items
+    { icon: icons.book, color: 'text-gold', anim: anims.pulseSlow, pos: 'bottom-[15%] left-[15%]', size: 'w-4 h-4 md:w-6 md:h-6' },
+    { icon: icons.sparkle, color: 'text-brown/40', anim: anims.twinkle, pos: 'top-[8%] right-[20%]', size: 'w-3 h-3 md:w-5 md:h-5' },
+    { icon: icons.building, color: 'text-burgundy/20', anim: anims.float, pos: 'top-[60%] right-[25%]', size: 'w-5 h-5 md:w-8 md:h-8 -rotate-6' },
+    { icon: icons.flask, color: 'text-gold/30', anim: anims.floatDelayed, pos: 'bottom-[25%] left-[35%]', size: 'w-4 h-4 md:w-6 md:h-6 rotate-45' },
+    { icon: icons.bus, color: 'text-brown/20', anim: anims.floatSlow, pos: 'top-[20%] left-[40%]', size: 'w-3 h-3 md:w-5 md:h-5' },
+    { icon: icons.star, color: 'text-burgundy/40', anim: anims.twinkleDelayed, pos: 'bottom-[5%] right-[40%]', size: 'w-2 h-2 md:w-4 md:h-4' },
+    // Extra small items for density and jitter
+    { icon: icons.star, color: 'text-burgundy/20', anim: anims.pulseSlow, pos: 'top-[40%] right-[45%]', size: 'w-1 h-1 md:w-2 md:h-2 rotate-180' },
+    { icon: icons.sparkle, color: 'text-gold/20', anim: anims.twinkle, pos: 'bottom-[10%] left-[50%]', size: 'w-2 h-2 md:w-3 md:h-3 -rotate-90' },
+    { icon: icons.star, color: 'text-brown/20', anim: anims.twinkleDelayed, pos: 'top-[5%] left-[25%]', size: 'w-2 h-2 md:w-3 md:h-3 rotate-12' },
+  ],
+  admissions: [
+    { icon: icons.checklist, color: 'text-burgundy', anim: anims.float, pos: 'top-[15%] left-[8%]', size: 'w-8 h-8 md:w-12 md:h-12' },
+    { icon: icons.calendar, color: 'text-gold', anim: anims.floatDelayed, pos: 'top-[28%] right-[10%]', size: 'w-8 h-8 md:w-12 md:h-12 rotate-6' },
+    { icon: icons.user, color: 'text-brown', anim: anims.floatSlow, pos: 'top-[55%] left-[6%]', size: 'w-10 h-10 md:w-16 md:h-16 -rotate-6' },
+    { icon: icons.gradCap, color: 'text-burgundy', anim: anims.float, pos: 'bottom-[30%] right-[12%]', size: 'w-10 h-10 md:w-16 md:h-16' },
+    
+    // Small scatter items
+    { icon: icons.star, color: 'text-gold', anim: anims.pulseSlow, pos: 'bottom-[15%] left-[12%]', size: 'w-4 h-4 md:w-6 md:h-6' },
+    { icon: icons.sparkle, color: 'text-brown/40', anim: anims.twinkle, pos: 'top-[10%] right-[30%]', size: 'w-3 h-3 md:w-5 md:h-5' },
+    { icon: icons.checklist, color: 'text-burgundy/30', anim: anims.float, pos: 'top-[40%] left-[35%]', size: 'w-4 h-4 md:w-6 md:h-6 rotate-12' },
+    { icon: icons.calendar, color: 'text-gold/20', anim: anims.floatDelayed, pos: 'bottom-[45%] left-[50%]', size: 'w-5 h-5 md:w-8 md:h-8 -rotate-12' },
+    { icon: icons.user, color: 'text-brown/20', anim: anims.floatSlow, pos: 'top-[5%] left-[65%]', size: 'w-3 h-3 md:w-5 md:h-5' },
+    { icon: icons.star, color: 'text-burgundy/40', anim: anims.twinkleDelayed, pos: 'bottom-[5%] right-[30%]', size: 'w-2 h-2 md:w-4 md:h-4' },
+    // Extra small items for density and jitter
+    { icon: icons.sparkle, color: 'text-gold/20', anim: anims.twinkleDelayed, pos: 'bottom-[25%] right-[45%]', size: 'w-2 h-2 md:w-3 md:h-3 rotate-45' },
+    { icon: icons.star, color: 'text-burgundy/20', anim: anims.pulseSlow, pos: 'top-[35%] left-[15%]', size: 'w-1 h-1 md:w-2 md:h-2 -rotate-12' },
+    { icon: icons.star, color: 'text-brown/20', anim: anims.twinkle, pos: 'bottom-[15%] right-[5%]', size: 'w-2 h-2 md:w-3 md:h-3 rotate-90' },
+  ],
+  contact: [
+    { icon: icons.mail, color: 'text-burgundy', anim: anims.float, pos: 'top-[18%] left-[8%]', size: 'w-8 h-8 md:w-12 md:h-12' },
+    { icon: icons.phone, color: 'text-gold', anim: anims.floatDelayed, pos: 'top-[30%] right-[10%]', size: 'w-8 h-8 md:w-12 md:h-12 rotate-12' },
+    { icon: icons.mapPin, color: 'text-brown', anim: anims.floatSlow, pos: 'top-[50%] left-[10%]', size: 'w-10 h-10 md:w-16 md:h-16 -rotate-6' },
+    { icon: icons.globe, color: 'text-burgundy', anim: anims.spinSlow, pos: 'bottom-[35%] right-[8%]', size: 'w-8 h-8 md:w-12 md:h-12' },
+    
+    // Small scatter items
+    { icon: icons.sparkle, color: 'text-gold/50', anim: anims.twinkle, pos: 'bottom-[20%] left-[25%]', size: 'w-3 h-3 md:w-5 md:h-5' },
+    { icon: icons.mail, color: 'text-burgundy/30', anim: anims.float, pos: 'top-[10%] right-[25%]', size: 'w-4 h-4 md:w-6 md:h-6 rotate-45' },
+    { icon: icons.phone, color: 'text-gold/20', anim: anims.floatDelayed, pos: 'bottom-[45%] left-[45%]', size: 'w-5 h-5 md:w-8 md:h-8 -rotate-12' },
+    { icon: icons.mapPin, color: 'text-brown/30', anim: anims.floatSlow, pos: 'top-[65%] right-[35%]', size: 'w-3 h-3 md:w-5 md:h-5' },
+    { icon: icons.star, color: 'text-burgundy/40', anim: anims.twinkleDelayed, pos: 'top-[5%] left-[50%]', size: 'w-2 h-2 md:w-4 md:h-4' },
+    // Extra small items for density and jitter
+    { icon: icons.star, color: 'text-burgundy/20', anim: anims.pulseSlow, pos: 'top-[40%] left-[45%]', size: 'w-1 h-1 md:w-2 md:h-2 rotate-180' },
+    { icon: icons.sparkle, color: 'text-gold/20', anim: anims.twinkle, pos: 'bottom-[10%] right-[15%]', size: 'w-2 h-2 md:w-3 md:h-3 -rotate-45' },
+    { icon: icons.star, color: 'text-brown/20', anim: anims.twinkleDelayed, pos: 'top-[15%] left-[60%]', size: 'w-2 h-2 md:w-3 md:h-3 rotate-12' },
+  ],
+  home: [
+    { icon: icons.star, color: 'text-gold', anim: anims.pulseSlow, pos: 'top-[15%] left-[8%]', size: 'w-6 h-6 md:w-10 md:h-10' },
+    { icon: icons.gradCap, color: 'text-burgundy', anim: anims.floatDelayed, pos: 'top-[25%] right-[10%]', size: 'w-10 h-10 md:w-16 md:h-16 rotate-12' },
+    { icon: icons.trophy, color: 'text-brown', anim: anims.floatSlow, pos: 'top-[50%] left-[5%]', size: 'w-8 h-8 md:w-12 md:h-12 -rotate-6' },
+    { icon: icons.atom, color: 'text-burgundy', anim: anims.spinSlow, pos: 'bottom-[30%] right-[6%]', size: 'w-8 h-8 md:w-12 md:h-12' },
+    { icon: icons.pencil, color: 'text-gold', anim: anims.float, pos: 'bottom-[15%] left-[10%]', size: 'w-6 h-6 md:w-10 md:h-10' },
+    
+    // Small scatter items
+    { icon: icons.sparkle, color: 'text-burgundy/50', anim: anims.twinkle, pos: 'top-[10%] right-[30%]', size: 'w-3 h-3 md:w-5 md:h-5' },
+    { icon: icons.book, color: 'text-brown/30', anim: anims.floatSlow, pos: 'top-[40%] left-[25%]', size: 'w-4 h-4 md:w-6 md:h-6 rotate-45' },
+    { icon: icons.dna, color: 'text-gold/30', anim: anims.floatDelayed, pos: 'bottom-[45%] right-[35%]', size: 'w-5 h-5 md:w-8 md:h-8 -rotate-12' },
+    { icon: icons.music, color: 'text-burgundy/20', anim: anims.float, pos: 'top-[65%] left-[40%]', size: 'w-3 h-3 md:w-5 md:h-5' },
+    { icon: icons.star, color: 'text-gold/40', anim: anims.twinkleDelayed, pos: 'bottom-[5%] right-[45%]', size: 'w-2 h-2 md:w-4 md:h-4' },
+    { icon: icons.sparkle, color: 'text-brown/40', anim: anims.pulseSlow, pos: 'top-[5%] left-[60%]', size: 'w-4 h-4 md:w-6 md:h-6' },
+    // Extra small items for density and jitter
+    { icon: icons.sparkle, color: 'text-gold/20', anim: anims.twinkleDelayed, pos: 'bottom-[35%] left-[20%]', size: 'w-2 h-2 md:w-3 md:h-3 rotate-90' },
+    { icon: icons.star, color: 'text-burgundy/20', anim: anims.pulseSlow, pos: 'top-[30%] right-[40%]', size: 'w-1 h-1 md:w-2 md:h-2 -rotate-12' },
+    { icon: icons.star, color: 'text-brown/20', anim: anims.twinkle, pos: 'bottom-[15%] left-[50%]', size: 'w-2 h-2 md:w-3 md:h-3 rotate-45' },
+  ],
+  alumni: [
+    // Larger background elements
+    { icon: icons.circle, color: 'text-gold/10', anim: anims.pulseSlow, pos: 'top-[10%] left-[10%]', size: 'w-20 h-20 blur-xl' },
+    { icon: icons.circle, color: 'text-burgundy/10', anim: anims.pulseSlow, pos: 'bottom-[20%] right-[10%]', size: 'w-32 h-32 blur-2xl' },
+    
+    // Medium particles
+    { icon: icons.circle, color: 'text-gold/20', anim: anims.float, pos: 'top-[20%] right-[20%]', size: 'w-3 h-3 md:w-4 md:h-4' },
+    { icon: icons.circle, color: 'text-burgundy/20', anim: anims.floatDelayed, pos: 'bottom-[30%] left-[20%]', size: 'w-4 h-4 md:w-5 md:h-5' },
+    { icon: icons.circle, color: 'text-white/10', anim: anims.floatSlow, pos: 'top-[40%] left-[40%]', size: 'w-2 h-2 md:w-3 md:h-3' },
+    { icon: icons.circle, color: 'text-gold/15', anim: anims.float, pos: 'bottom-[40%] right-[30%]', size: 'w-3 h-3 md:w-4 md:h-4' },
+    
+    // Small particles (stars/sparkles)
+    { icon: icons.circle, color: 'text-white/20', anim: anims.twinkle, pos: 'top-[15%] left-[30%]', size: 'w-1 h-1 md:w-2 md:h-2' },
+    { icon: icons.circle, color: 'text-gold/30', anim: anims.twinkleDelayed, pos: 'top-[5%] right-[15%]', size: 'w-1.5 h-1.5 md:w-2.5 md:h-2.5' },
+    { icon: icons.circle, color: 'text-burgundy/20', anim: anims.twinkle, pos: 'bottom-[15%] left-[15%]', size: 'w-1 h-1 md:w-2 md:h-2' },
+    { icon: icons.circle, color: 'text-white/15', anim: anims.twinkleDelayed, pos: 'bottom-[50%] right-[50%]', size: 'w-1 h-1 md:w-2 md:h-2' },
+    { icon: icons.circle, color: 'text-gold/20', anim: anims.twinkle, pos: 'top-[60%] left-[10%]', size: 'w-1.5 h-1.5 md:w-2.5 md:h-2.5' },
+    { icon: icons.circle, color: 'text-burgundy/15', anim: anims.twinkleDelayed, pos: 'bottom-[10%] right-[25%]', size: 'w-1 h-1 md:w-2 md:h-2' },
+    
+    // Extra density
+    { icon: icons.circle, color: 'text-white/10', anim: anims.pulseSlow, pos: 'top-[30%] right-[40%]', size: 'w-1 h-1 md:w-1.5 md:h-1.5' },
+    { icon: icons.circle, color: 'text-gold/10', anim: anims.float, pos: 'bottom-[35%] left-[5%]', size: 'w-1 h-1 md:w-2 md:h-2' },
+    { icon: icons.circle, color: 'text-burgundy/10', anim: anims.floatDelayed, pos: 'top-[80%] right-[5%]', size: 'w-2 h-2 md:w-3 md:h-3' },
+  ],
+};
+
+const currentConfig = configs[variant] || configs.about;
+---
+
+<div class="absolute inset-0 z-0 pointer-events-none overflow-hidden w-full h-full" aria-hidden="true">
+  {currentConfig.map((item) => (
+    <div class={`absolute opacity-10 ${item.pos} ${item.color} ${item.anim} ${item.size}`}>
+      <svg viewBox="0 0 24 24" fill="currentColor" set:html={item.icon} />
+    </div>
+  ))}
+  
+  <!-- Random Sparkles (Common to all) -->
+  <div class="absolute top-1/4 left-1/2 opacity-20 text-gold animate-twinkle w-4 h-4">
+    <svg viewBox="0 0 24 24" fill="currentColor" set:html={icons.sparkle} />
+  </div>
+  <div class="absolute bottom-1/3 right-1/3 opacity-10 text-burgundy animate-twinkle-delayed w-6 h-6">
+    <svg viewBox="0 0 24 24" fill="currentColor" set:html={icons.sparkle} />
+  </div>
+</div>
+
+<style>
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes pulse-slow {
+    0%, 100% { transform: scale(1); opacity: 0.15; }
+    50% { transform: scale(1.1); opacity: 0.25; }
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.2); }
+  }
+   @keyframes twinkle-delayed {
+    0%, 100% { opacity: 0.1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(1.2); }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 20s linear infinite;
+  }
+  .animate-pulse-slow {
+    animation: pulse-slow 4s ease-in-out infinite;
+  }
+  .animate-twinkle {
+    animation: twinkle 3s ease-in-out infinite;
+  }
+  .animate-twinkle-delayed {
+    animation: twinkle-delayed 4s ease-in-out infinite;
+    animation-delay: 1.5s;
+  }
+</style>

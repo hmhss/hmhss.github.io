@@ -1,0 +1,64 @@
+---
+interface Props {
+  target: number;
+  label: string;
+  suffix?: string;
+}
+
+const { target, label, suffix = "" } = Astro.props;
+---
+
+<div class="counter-item bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition-all group hover:border-gold/50">
+  <div class="w-20 h-20 mx-auto bg-cream rounded-full flex items-center justify-center mb-4 group-hover:bg-gold transition-colors duration-300 shadow-inner">
+    <slot name="icon" />
+  </div>
+  <div class="text-4xl md:text-5xl font-extrabold text-burgundy mb-2 flex justify-center items-baseline font-serif">
+    <span class="counter-value" data-target={target}>0</span>
+    {suffix && <span class="text-2xl ml-1 text-gold">{suffix}</span>}
+  </div>
+  <h3 class="text-gray-600 font-bold uppercase tracking-wider text-sm">{label}</h3>
+</div>
+
+<script>
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const counter = entry.target.querySelector('.counter-value');
+        if (counter && !counter.hasAttribute('data-animated')) {
+          const target = parseInt(counter.getAttribute('data-target') || '0');
+          animateValue(counter, 0, target, 2000);
+          counter.setAttribute('data-animated', 'true');
+          observer.unobserve(entry.target);
+        }
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.counter-item').forEach(item => {
+    observer.observe(item);
+  });
+
+  function animateValue(obj: Element, start: number, end: number, duration: number) {
+    let startTimestamp: number | null = null;
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      
+      // Easing function (easeOutExpo)
+      const easeOut = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      
+      obj.innerHTML = Math.floor(easeOut * (end - start) + start).toString();
+      
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }
+</script>

@@ -1,0 +1,56 @@
+backend:
+  name: github
+  repo: your-username/your-repo # TODO: Replace with your GitHub repository path (e.g., "aj/hmhss")
+  branch: main # Branch to update
+  # base_url: https://your-oauth-server.com # Optional: if using an external OAuth server
+
+local_backend: true
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "announcements"
+    label: "Announcements"
+    folder: "src/content/announcements"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Category", name: "category", widget: "select", options: ["Exam", "Holiday", "Event", "General"]}
+      - {label: "Pinned", name: "pinned", widget: "boolean", default: false}
+      - {label: "Summary", name: "summary", widget: "text"}
+      - {label: "Cover Image", name: "coverImage", widget: "image", required: false}
+      - {label: "Draft", name: "draft", widget: "boolean", default: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "blog"
+    label: "Blog"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Tags", name: "tags", widget: "list"}
+      - {label: "Summary", name: "summary", widget: "text"}
+      - {label: "Cover Image", name: "coverImage", widget: "image", required: false}
+      - {label: "Author", name: "author", widget: "string", required: false}
+      - {label: "Draft", name: "draft", widget: "boolean", default: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "alumni"
+    label: "Alumni Highlights"
+    folder: "src/content/alumni"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Name", name: "name", widget: "string"}
+      - {label: "Graduation Year", name: "graduationYear", widget: "number", value_type: "int"}
+      - {label: "Current Role", name: "currentRole", widget: "string"}
+      - {label: "Location", name: "location", widget: "string", required: false}
+      - {label: "Summary", name: "summary", widget: "text"}
+      - {label: "Photo", name: "photo", widget: "image", required: false}
+      - {label: "Draft", name: "draft", widget: "boolean", default: false}
+      - {label: "Body", name: "body", widget: "markdown"}

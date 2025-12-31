@@ -1,0 +1,207 @@
+---
+import images from '../data/images.yml';
+---
+
+<div class="relative w-full h-[600px] md:h-[700px] overflow-hidden bg-dark-brown text-white">
+  <!-- Carousel Backgrounds -->
+  <div id="hero-carousel" class="absolute inset-0 z-0">
+    <!-- Slide 1: Vanta Animation -->
+    <div class="hero-slide absolute inset-0 opacity-100 transition-opacity duration-1000" id="vanta-bg"></div>
+    
+    <!-- Slide 2: Image -->
+    <div class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-1000 bg-cover bg-center" style={`background-image: url('${images.hero_carousel_1}');`}>
+      <div class="absolute inset-0 bg-black/50"></div>
+    </div>
+
+    <!-- Slide 3: Image -->
+    <div class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-1000 bg-cover bg-center" style={`background-image: url('${images.hero_carousel_2}');`}>
+      <div class="absolute inset-0 bg-black/50"></div>
+    </div>
+  </div>
+
+  <!-- Content Overlay -->
+  <div class="relative z-10 container mx-auto px-4 h-full flex items-center">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 w-full items-center">
+      
+      <!-- Left Column: Text -->
+      <div class="text-left space-y-8">
+        <div>
+          <h1 class="text-3xl md:text-4xl lg:text-6xl font-extrabold leading-tight mb-4 tracking-tight text-white animate-fade-in-up">
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-gold to-cream bg-300% animate-gradient drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
+              Hebron Matriculation Higher Secondary School
+            </span>
+          </h1>
+        </div>
+
+        <ul class="space-y-4">
+          <li class="flex items-center space-x-3 animate-fade-in-up" style="animation-delay: 0.2s;">
+            <div class="p-2 bg-white/10 rounded-full backdrop-blur-sm">
+              <span class="block w-2 h-2 bg-gold rounded-full"></span>
+            </div>
+            <span class="text-xl md:text-2xl font-medium text-cream tracking-wide">Nurturing Academic Excellence</span>
+          </li>
+          <li class="flex items-center space-x-3 animate-fade-in-up" style="animation-delay: 0.4s;">
+            <div class="p-2 bg-white/10 rounded-full backdrop-blur-sm">
+              <span class="block w-2 h-2 bg-gold rounded-full"></span>
+            </div>
+            <span class="text-xl md:text-2xl font-medium text-cream tracking-wide">Building Strong Character</span>
+          </li>
+          <li class="flex items-center space-x-3 animate-fade-in-up" style="animation-delay: 0.6s;">
+            <div class="p-2 bg-white/10 rounded-full backdrop-blur-sm">
+              <span class="block w-2 h-2 bg-gold rounded-full"></span>
+            </div>
+            <span class="text-xl md:text-2xl font-medium text-cream tracking-wide">Inspiring Tomorrow's Leaders</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Right Column: Buttons -->
+      <div class="flex flex-col justify-center lg:items-end w-full">
+        <div class="flex flex-col gap-4 w-full max-w-md lg:ml-auto">
+          
+          <!-- Contact (Primary CTA) -->
+          <a href="/contact" class="group relative px-6 py-4 bg-gold text-burgundy font-bold rounded-xl shadow-[0_0_20px_rgba(255,215,0,0.2)] hover:shadow-[0_0_30px_rgba(255,215,0,0.4)] hover:-translate-y-1 transition-all duration-300 flex items-center justify-between overflow-hidden">
+            <span class="relative z-10 flex items-center gap-3 text-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+              Contact Us
+            </span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform group-hover:translate-x-1 transition-transform relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+            <div class="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out"></div>
+          </a>
+
+          <!-- Academics -->
+          <a href="/academics" class="group relative px-6 py-4 bg-cream/10 backdrop-blur-md border border-cream/20 text-cream font-bold rounded-xl hover:bg-cream/20 hover:border-cream/40 transition-all duration-300 flex items-center justify-between">
+            <span class="flex items-center gap-3 text-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+              Explore Academics
+            </span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+          </a>
+
+          <!-- Facilities -->
+          <a href="/facilities" class="group relative px-6 py-4 bg-cream/10 backdrop-blur-md border border-cream/20 text-cream font-bold rounded-xl hover:bg-cream/20 hover:border-cream/40 transition-all duration-300 flex items-center justify-between">
+            <span class="flex items-center gap-3 text-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
+              Our Facilities
+            </span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Carousel Indicators (Optional) -->
+  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+    <button class="w-3 h-3 rounded-full bg-white opacity-100 carousel-indicator" data-slide="0"></button>
+    <button class="w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100 transition-opacity carousel-indicator" data-slide="1"></button>
+    <button class="w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100 transition-opacity carousel-indicator" data-slide="2"></button>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+<script is:inline src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.dots.min.js"></script>
+
+<script>
+  // Vanta Initialization
+  document.addEventListener('DOMContentLoaded', () => {
+    try {
+      if (window.VANTA) {
+        window.VANTA.DOTS({
+          el: "#vanta-bg",
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          scale: 1.00,
+          scaleMobile: 1.00,
+          color: 0xff8820, // Orange
+          color2: 0xff8820, // Orange
+          backgroundColor: 0x222222, // Dark Grey/Black
+          size: 3.0,
+          spacing: 35.0,
+          showLines: true
+        });
+      }
+    } catch (e) {
+      console.error("Vanta JS failed to load", e);
+    }
+
+    // Carousel Logic
+    const slides = document.querySelectorAll('.hero-slide');
+    const indicators = document.querySelectorAll('.carousel-indicator');
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+    const intervalTime = 5000; // 5 seconds
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        if (i === index) {
+          slide.classList.remove('opacity-0');
+          slide.classList.add('opacity-100');
+        } else {
+          slide.classList.remove('opacity-100');
+          slide.classList.add('opacity-0');
+        }
+      });
+
+      indicators.forEach((ind, i) => {
+        if (i === index) {
+          ind.classList.remove('opacity-50');
+          ind.classList.add('opacity-100');
+        } else {
+          ind.classList.remove('opacity-100');
+          ind.classList.add('opacity-50');
+        }
+      });
+
+      currentSlide = index;
+    }
+
+    // Auto Advance
+    setInterval(() => {
+      const nextSlide = (currentSlide + 1) % totalSlides;
+      showSlide(nextSlide);
+    }, intervalTime);
+
+    // Manual Navigation
+    indicators.forEach((ind, i) => {
+      ind.addEventListener('click', () => {
+        showSlide(i);
+      });
+    });
+  });
+</script>
+
+<style>
+  @keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .animate-gradient {
+    animation: gradient 8s ease infinite;
+    background-size: 200% auto;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 40px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .animate-fade-in-up {
+    opacity: 0; /* Start invisible */
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+</style>
