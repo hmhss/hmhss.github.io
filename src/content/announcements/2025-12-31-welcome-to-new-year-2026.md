@@ -2,9 +2,9 @@
 title: Welcome to New Year 2026
 date: 2026-01-01T00:00:00.000+05:30
 category: Holiday
-pinned: false
+pinned: true
 summary: Wishing you a bright, purposeful, and inspiring New Year!
-coverImage: https://static.toiimg.com/thumb/126198942.jpg?imgsize=109104&photoid=126198942&width=600&height=335&resizemode=75
+coverImage: /uploads/2026-new-year.png
 draft: false
 ---
 Dear Students,
