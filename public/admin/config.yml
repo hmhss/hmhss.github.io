@@ -1,12 +1,10 @@
 backend:
   name: git-gateway
   branch: main
-  # TODO: Replace with your Netlify site domain (e.g., "brave-curie-12345.netlify.app")
   # This is REQUIRED because your site is on GitHub Pages, but Auth is on Netlify.
   site_domain: glittery-pegasus-47d53a.netlify.app
-  # base_url: https://your-oauth-server.com # Optional: if using an external OAuth server
-
-local_backend: true
+  
+# local_backend: true
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
