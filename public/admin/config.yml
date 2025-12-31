@@ -27,6 +27,24 @@ collections:
       - {label: "Draft", name: "draft", widget: "boolean", default: false}
       - {label: "Body", name: "body", widget: "markdown"}
 
+  - name: "settings"
+    label: "Settings"
+    files:
+      - name: "featured_alumni"
+        label: "Featured Alumni"
+        file: "src/data/featuredAlumni.yml"
+        fields:
+          - label: "Featured Alumni"
+            name: "featured"
+            widget: "relation"
+            collection: "alumni"
+            search_fields: ["name"]
+            value_field: "{{slug}}"
+            display_fields: ["name"]
+            multiple: true
+            min: 1
+            max: 6
+
   - name: "blog"
     label: "Blog"
     folder: "src/content/blog"
