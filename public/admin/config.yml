@@ -1,7 +1,7 @@
 backend:
-  name: github
-  repo: your-username/your-repo # TODO: Replace with your GitHub repository path (e.g., "aj/hmhss")
-  branch: main # Branch to update
+  name: git-gateway
+  branch: main
+  # repo: hmhss/hmhss.github.io # Not needed for git-gateway with Netlify
   # base_url: https://your-oauth-server.com # Optional: if using an external OAuth server
 
 local_backend: true
