@@ -24,18 +24,6 @@ const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title} | Hebron MHSS</title>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", user => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
-            });
-          }
-        });
-      }
-    </script>
   </head>
   <body class:list={["flex flex-col min-h-screen font-sans", bodyClass]}>
     <Header />
