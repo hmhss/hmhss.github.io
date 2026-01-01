@@ -10,23 +10,5 @@
 <body>
   <!-- Include the script that builds the page and powers Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  
-  <script>
-    // Redirect to Netlify domain for admin access to avoid CORS/Identity issues on GitHub Pages
-    if (window.location.hostname === "hmhss.github.io") {
-      window.location.href = "https://glittery-pegasus-47d53a.netlify.app/admin/";
-    }
-    
-    // Initialize Netlify Identity
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
-        }
-      });
-    }
-  </script>
 </body>
 </html>

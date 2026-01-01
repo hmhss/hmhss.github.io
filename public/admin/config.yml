@@ -1,8 +1,11 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: hmhss/hmhss.github.io
   branch: main
-  
-# local_backend: true
+  # We will use a custom OAuth provider since Netlify is not available
+  # See CMS_SETUP.md for instructions on how to set this up for free on Vercel
+  base_url: https://hmhss-oauth.vercel.app # PLACEHOLDER: Update this after deploying your OAuth server
+  auth_endpoint: auth
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
