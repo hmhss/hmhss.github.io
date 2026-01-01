@@ -31,9 +31,9 @@ Since the "Deploy Button" can sometimes be confusing or outdated, here is the re
 3.  **Configure Environment Variables**:
     *   In the "Configure Project" screen, look for **Environment Variables**.
     *   Add the following variables (using the values from Step 1):
-        *   **Name**: `OAUTH_CLIENT_ID`
+        *   **Name**: Ov23liWGYxUY3CFoY9WY
             *   **Value**: (Paste your Client ID)
-        *   **Name**: `OAUTH_CLIENT_SECRET`
+        *   **Name**: d50936fc636701cfd52bd05cd8e25b0397026769
             *   **Value**: (Paste your Client Secret)
     *   *Note: You do not need to change the Build Command or Output Directory.*
 
@@ -46,23 +46,21 @@ Since the "Deploy Button" can sometimes be confusing or outdated, here is the re
 
 1.  **Update GitHub App Callback**: 
     *   Go back to your GitHub OAuth App settings (Developer Settings > OAuth Apps > Edit).
-    *   Update the **Authorization callback URL** to match your new Vercel URL + `/callback`.
-    *   Example: `https://netlify-cms-github-oauth-provider-yourname.vercel.app/callback`
-
+    *   **CRITICAL**: Update the **Authorization callback URL** to:
+        `https://netlify-cms-github-oauth-provider-365kvg9kk.vercel.app/callback`
+    
 2.  **Update Code**: 
-    *   Edit `public/admin/config.yml` in this repository.
-    *   Update the `base_url` to your new Vercel domain (no trailing slash).
+    *   (Already Done) `public/admin/config.yml` has been updated with your Vercel URL.
 
-    ```yaml
-    backend:
-      name: github
-      repo: hmhss/hmhss.github.io
-      branch: main
-      base_url: https://netlify-cms-github-oauth-provider-yourname.vercel.app
-      auth_endpoint: auth
-    ```
+3.  **Push Changes**: 
+    *   (Already Done) The config changes have been pushed to the repository.
 
-3.  **Push Changes**: Commit and push the change to `config.yml`.
+## Done!
+
+Once you have updated the Callback URL in GitHub (Step 3.1), you can go to:
+[https://hmhss.github.io/admin](https://hmhss.github.io/admin)
+
+It should now allow you to log in via GitHub without any Netlify errors.
 
 ## Done!
 Now when you visit `https://hmhss.github.io/admin`, it will use your own private, free authentication server. No Netlify limits!

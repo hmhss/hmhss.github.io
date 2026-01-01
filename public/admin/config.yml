@@ -2,9 +2,7 @@ backend:
   name: github
   repo: hmhss/hmhss.github.io
   branch: main
-  # We will use a custom OAuth provider since Netlify is not available
-  # See CMS_SETUP.md for instructions on how to set this up for free on Vercel
-  base_url: https://hmhss-oauth.vercel.app # PLACEHOLDER: Update this after deploying your OAuth server
+  base_url: https://netlify-cms-github-oauth-provider-365kvg9kk.vercel.app
   auth_endpoint: auth
 
 media_folder: "public/uploads"
