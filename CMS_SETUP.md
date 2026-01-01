@@ -31,12 +31,12 @@ Since the "Deploy Button" can sometimes be confusing or outdated, here is the re
 3.  **Configure Environment Variables**:
     *   In the "Configure Project" screen, look for **Environment Variables**.
     *   Add the following variables (using the values from Step 1):
-        *   **Name**: Ov23liWGYxUY3CFoY9WY
+        *   **Name**: `OAUTH_CLIENT_ID`
             *   **Value**: (Paste your Client ID)
         *   **Name**: `OAUTH_CLIENT_SECRET`
             *   **Value**: (Paste your Client Secret)
         *   **Name**: `ORIGINS`
-            *   **Value**: `hmhss.github.io`
+            *   **Value**: `*`
     *   *Note: You do not need to change the Build Command or Output Directory.*
 
 4.  **Deploy (or Redeploy)**:
