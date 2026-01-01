@@ -17,31 +17,48 @@ Since the Netlify free tier limits were reached, we are switching to a robust, c
 
 ## Step 2: Deploy the OAuth Helper to Vercel
 
-We will use a free, open-source project to handle the secure login handshake.
+Since the "Deploy Button" can sometimes be confusing or outdated, here is the reliable manual method:
 
-1.  Click this button to deploy the helper: 
-    [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vencax/netlify-cms-github-oauth-provider)
-    *(If the link doesn't work, go to https://github.com/vencax/netlify-cms-github-oauth-provider and click the "Deploy to Vercel" button there)*
+1.  **Fork the Helper Repository**:
+    *   Go to: [https://github.com/vencax/netlify-cms-github-oauth-provider](https://github.com/vencax/netlify-cms-github-oauth-provider)
+    *   Click the **Fork** button in the top right corner to copy this repo to your own GitHub account.
 
-2.  Vercel will ask for environment variables. Enter the ones you got from GitHub:
-    *   `OAUTH_CLIENT_ID`: Paste your Client ID
-    *   `OAUTH_CLIENT_SECRET`: Paste your Client Secret
+2.  **Create a Project in Vercel**:
+    *   Log in to [Vercel](https://vercel.com/).
+    *   Click **Add New...** > **Project**.
+    *   Find the repository you just forked (`netlify-cms-github-oauth-provider`) and click **Import**.
 
-3.  Click **Deploy**.
-4.  Once deployed, you will get a URL (e.g., `https://project-name-xyz.vercel.app`).
+3.  **Configure Environment Variables**:
+    *   In the "Configure Project" screen, look for **Environment Variables**.
+    *   Add the following variables (using the values from Step 1):
+        *   **Name**: `OAUTH_CLIENT_ID`
+            *   **Value**: (Paste your Client ID)
+        *   **Name**: `OAUTH_CLIENT_SECRET`
+            *   **Value**: (Paste your Client Secret)
+    *   *Note: You do not need to change the Build Command or Output Directory.*
+
+4.  **Deploy**:
+    *   Click **Deploy**.
+    *   Wait for the deployment to finish. You will be redirected to the project dashboard.
+    *   **Copy your new Domain**: It will look something like `https://netlify-cms-github-oauth-provider-yourname.vercel.app`.
 
 ## Step 3: Connect Everything
 
-1.  **Update GitHub App**: Go back to your GitHub OAuth App settings and update the **Authorization callback URL** to match your new Vercel URL:
-    *   `https://<YOUR-VERCEL-URL>/callback`
+1.  **Update GitHub App Callback**: 
+    *   Go back to your GitHub OAuth App settings (Developer Settings > OAuth Apps > Edit).
+    *   Update the **Authorization callback URL** to match your new Vercel URL + `/callback`.
+    *   Example: `https://netlify-cms-github-oauth-provider-yourname.vercel.app/callback`
 
-2.  **Update Code**: Edit `public/admin/config.yml` in this repository:
+2.  **Update Code**: 
+    *   Edit `public/admin/config.yml` in this repository.
+    *   Update the `base_url` to your new Vercel domain (no trailing slash).
+
     ```yaml
     backend:
       name: github
       repo: hmhss/hmhss.github.io
       branch: main
-      base_url: https://<YOUR-VERCEL-URL>  <-- Update this line!
+      base_url: https://netlify-cms-github-oauth-provider-yourname.vercel.app
       auth_endpoint: auth
     ```
 
