@@ -45,9 +45,11 @@ Since the "Deploy Button" can sometimes be confusing or outdated, here is the re
     *   **Copy your new Domain** (if you haven't already): `https://netlify-cms-github-oauth-provider-three.vercel.app`.
 
 ### Troubleshooting
-If you see a `500: INTERNAL_SERVER_ERROR` with `Cannot read properties of undefined (reading 'match')`, it means the `ORIGINS` environment variable is not set correctly or hasn't taken effect.
-- **Double check**: Go to Settings > Environment Variables in Vercel. Ensure `ORIGINS` exists and is spelled exactly like that (all caps).
-- **Redeploy**: Changing variables does NOT update the running site. You MUST go to Deployments > Redeploy.
+If you see a `500: INTERNAL_SERVER_ERROR` with `Error: process.env.ORIGINS MUST be comma separated list of origins`, it means the `ORIGINS` environment variable is missing or empty in the running deployment.
+
+1.  **Verify Variable**: Go to Vercel > Settings > Environment Variables. Ensure `ORIGINS` exists with value `*`.
+2.  **Force Redeploy**: Go to Deployments > Click the three dots > **Redeploy**.
+    *   *Note: If redeploying doesn't work, try creating a new deployment by pushing a small change to the Vercel repo or clicking "Promote to Production".*
 
 ### Alternative `ORIGINS` Value
 If `hmhss.github.io` still fails, try changing the `ORIGINS` value to `*` (asterisk).
