@@ -1,8 +1,6 @@
 backend:
-  name: github
-  repo: hmhss/hmhss.github.io
+  name: git-gateway
   branch: main
-  site_domain: glittery-pegasus-47d53a.netlify.app
   
 # local_backend: true
 
