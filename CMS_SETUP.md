@@ -42,7 +42,12 @@ Since the "Deploy Button" can sometimes be confusing or outdated, here is the re
 4.  **Deploy (or Redeploy)**:
     *   **Crucial**: If you have already deployed, you must **Redeploy** for the new environment variables to take effect.
     *   Go to **Deployments** tab > Click the three dots on the latest deployment > **Redeploy**.
-    *   **Copy your new Domain** (if you haven't already): `https://netlify-cms-github-oauth-provider-yourname.vercel.app`.
+    *   **Copy your new Domain** (if you haven't already): `https://netlify-cms-github-oauth-provider-three.vercel.app`.
+
+### Troubleshooting
+If you see a `500: INTERNAL_SERVER_ERROR` with `Cannot read properties of undefined (reading 'match')`, it means the `ORIGINS` environment variable is not set correctly or hasn't taken effect.
+- **Double check**: Go to Settings > Environment Variables in Vercel. Ensure `ORIGINS` exists and is spelled exactly like that (all caps).
+- **Redeploy**: Changing variables does NOT update the running site. You MUST go to Deployments > Redeploy.
 
 ## Step 3: Connect Everything
 
