@@ -49,7 +49,7 @@ Since the "Deploy Button" can sometimes be confusing or outdated, here is the re
 1.  **Update GitHub App Callback**: 
     *   Go back to your GitHub OAuth App settings (Developer Settings > OAuth Apps > Edit).
     *   **CRITICAL**: Update the **Authorization callback URL** to:
-        `https://netlify-cms-github-oauth-provider-365kvg9kk.vercel.app/callback`
+        `https://netlify-cms-github-oauth-provider-three.vercel.app/callback`
     
 2.  **Update Code**: 
     *   (Already Done) `public/admin/config.yml` has been updated with your Vercel URL.
