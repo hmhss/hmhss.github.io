@@ -63,20 +63,23 @@ This site uses Decap CMS (formerly Netlify CMS) to allow non-technical users to 
 
 ### Authentication Setup
 
-The CMS is configured to use the **GitHub Backend**. This allows direct access to the GitHub API for content management.
-- **Backend**: `github` (in `public/admin/config.yml`)
-- **Authentication**: Uses Netlify's central API (`api.netlify.com`) as the OAuth bridge.
+The CMS is configured to use **Netlify Identity** with Git Gateway.
+- **Backend**: `git-gateway`
+- **Authentication**: Managed via Netlify Identity on the `glittery-pegasus` site.
 
 ### Adding Site Editors
 
-Since the CMS uses your GitHub account for authentication, adding new editors is done via GitHub repository permissions:
+To add new editors, you must invite them via the Netlify dashboard:
 
-1.  Go to the [GitHub Repository](https://github.com/hmhss/hmhss.github.io).
-2.  Navigate to **Settings** > **Collaborators**.
-3.  Click **Add people**.
-4.  Enter the user's **GitHub username** or **email address**.
-5.  Select **Write** role (or Admin) to allow them to edit content.
-6.  The user will receive an email invitation. Once accepted, they can log in at `/admin`.
+1.  Go to your [Netlify Site Dashboard](https://app.netlify.com/).
+2.  Navigate to **Identity** tab.
+3.  Click **Invite users**.
+4.  Enter the editor's email address.
+5.  They will receive an email to create a password (or login with GitHub if enabled).
+
+### Note on Admin URL
+
+When you visit `/admin` on the main site (`hmhss.github.io`), you will be automatically redirected to the Netlify domain (`glittery-pegasus-47d53a.netlify.app/admin`). This is normal and required for secure authentication.
 
 ## 📦 Deployment
 
