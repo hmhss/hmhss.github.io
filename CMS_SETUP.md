@@ -49,6 +49,13 @@ If you see a `500: INTERNAL_SERVER_ERROR` with `Cannot read properties of undefi
 - **Double check**: Go to Settings > Environment Variables in Vercel. Ensure `ORIGINS` exists and is spelled exactly like that (all caps).
 - **Redeploy**: Changing variables does NOT update the running site. You MUST go to Deployments > Redeploy.
 
+### Alternative `ORIGINS` Value
+If `hmhss.github.io` still fails, try changing the `ORIGINS` value to `*` (asterisk).
+1.  Go to Vercel > Settings > Environment Variables.
+2.  Edit `ORIGINS` and set it to `*`.
+3.  Go to Deployments > Redeploy.
+This allows any domain to connect, which rules out domain matching issues.
+
 ## Step 3: Connect Everything
 
 1.  **Update GitHub App Callback**: 
