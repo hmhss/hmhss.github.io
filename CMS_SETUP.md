@@ -33,14 +33,16 @@ Since the "Deploy Button" can sometimes be confusing or outdated, here is the re
     *   Add the following variables (using the values from Step 1):
         *   **Name**: Ov23liWGYxUY3CFoY9WY
             *   **Value**: (Paste your Client ID)
-        *   **Name**: d50936fc636701cfd52bd05cd8e25b0397026769
+        *   **Name**: `OAUTH_CLIENT_SECRET`
             *   **Value**: (Paste your Client Secret)
+        *   **Name**: `ORIGINS`
+            *   **Value**: `hmhss.github.io`
     *   *Note: You do not need to change the Build Command or Output Directory.*
 
-4.  **Deploy**:
-    *   Click **Deploy**.
-    *   Wait for the deployment to finish. You will be redirected to the project dashboard.
-    *   **Copy your new Domain**: It will look something like `https://netlify-cms-github-oauth-provider-yourname.vercel.app`.
+4.  **Deploy (or Redeploy)**:
+    *   **Crucial**: If you have already deployed, you must **Redeploy** for the new environment variables to take effect.
+    *   Go to **Deployments** tab > Click the three dots on the latest deployment > **Redeploy**.
+    *   **Copy your new Domain** (if you haven't already): `https://netlify-cms-github-oauth-provider-yourname.vercel.app`.
 
 ## Step 3: Connect Everything
 
