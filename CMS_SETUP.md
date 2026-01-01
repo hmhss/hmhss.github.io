@@ -28,15 +28,23 @@ Since the "Deploy Button" can sometimes be confusing or outdated, here is the re
     *   Click **Add New...** > **Project**.
     *   Find the repository you just forked (`netlify-cms-github-oauth-provider`) and click **Import**.
 
-3.  **Configure Environment Variables**:
-    *   In the "Configure Project" screen, look for **Environment Variables**.
-    *   Add the following variables (using the values from Step 1):
-        *   **Name**: `OAUTH_CLIENT_ID`
-            *   **Value**: (Paste your Client ID)
-        *   **Name**: `OAUTH_CLIENT_SECRET`
-            *   **Value**: (Paste your Client Secret)
+3.  **Add Environment Variables**:
+    *   Go to **Settings** > **Environment Variables**.
+    *   Add the following variables:
         *   **Name**: `ORIGINS`
-            *   **Value**: `*`
+        *   **Value**: `hmhss.github.io` (or `*` to allow all)
+        *   **Name**: `OAUTH_CLIENT_ID`
+        *   **Value**: (Your Client ID from GitHub)
+        *   **Name**: `OAUTH_CLIENT_SECRET`
+        *   **Value**: (Your Client Secret from GitHub)
+    *   **IMPORTANT**: Ensure these are applied to **Production**, **Preview**, and **Development**.
+
+4.  **Redeploy (CRITICAL STEP)**:
+    *   Adding variables does **NOT** update the running site automatically.
+    *   Go to the **Deployments** tab.
+    *   Click the **three dots** (...) next to the latest deployment.
+    *   Select **Redeploy**.
+    *   Wait for the deployment to turn green (Ready).
     *   *Note: You do not need to change the Build Command or Output Directory.*
 
 4.  **Deploy (or Redeploy)**:
@@ -63,13 +71,13 @@ This allows any domain to connect, which rules out domain matching issues.
 1.  **Update GitHub App Callback**: 
     *   Go back to your GitHub OAuth App settings (Developer Settings > OAuth Apps > Edit).
     *   **CRITICAL**: Update the **Authorization callback URL** to:
-        `https://netlify-cms-github-oauth-provider-three.vercel.app/callback`
-    
-2.  **Update Code**: 
-    *   (Already Done) `public/admin/config.yml` has been updated with your Vercel URL.
+        `https://netlify-cms-github-oauth-provider-ajitjohnsons-projects.vercel.app/callback`
+    *   (The Homepage URL can be your main site: `https://hmhss.github.io`)
+    *   Save changes.
 
-3.  **Push Changes**: 
-    *   (Already Done) The config changes have been pushed to the repository.
+2.  **Update Config File**:
+    *   I have already updated `public/admin/config.yml` for you.
+    *   It now points to `base_url: https://netlify-cms-github-oauth-provider-ajitjohnsons-projects.vercel.app`
 
 ## Done!
 

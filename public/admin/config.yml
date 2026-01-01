@@ -2,7 +2,7 @@ backend:
   name: github
   repo: hmhss/hmhss.github.io
   branch: main
-  base_url: https://netlify-cms-github-oauth-provider-three.vercel.app
+  base_url: https://netlify-cms-github-oauth-provider-ajitjohnsons-projects.vercel.app
   auth_endpoint: auth
 
 media_folder: "public/uploads"
