@@ -58,30 +58,25 @@ This site uses Decap CMS (formerly Netlify CMS) to allow non-technical users to 
 
 ### Accessing the CMS
 
-1.  Navigate to `/admin` (e.g., `http://localhost:4321/admin` or `https://your-site.github.io/admin`).
-2.  Login with GitHub.
+1.  Navigate to `/admin` (e.g., `https://hmhss.github.io/admin`).
+2.  Click **Login with GitHub**.
 
-### Authentication Setup (GitHub Backend)
+### Authentication Setup
 
-To enable the CMS to commit changes to your repository, you need to set up a GitHub OAuth App.
+The CMS is configured to use the **GitHub Backend**. This allows direct access to the GitHub API for content management.
+- **Backend**: `github` (in `public/admin/config.yml`)
+- **Authentication**: Uses Netlify's central API (`api.netlify.com`) as the OAuth bridge.
 
-**Option 1: Using GitHub OAuth (Preferred)**
+### Adding Site Editors
 
-1.  Go to **GitHub Settings > Developer settings > OAuth Apps > New OAuth App**.
-2.  **Application Name:** Hebron Website CMS
-3.  **Homepage URL:** `https://<your-username>.github.io/<repo-name>`
-4.  **Authorization callback URL:** `https://<your-username>.github.io/<repo-name>/admin/`
-5.  **Register application**.
-6.  You will need an OAuth client (like an external service or a Netlify site configured as an auth provider) to handle the handshake.
-    *   *Note:* Since GitHub Pages doesn't have a backend to hide the Client Secret, you typically need an external auth server (like `decap-cms-github-oauth-provider` on Vercel/Heroku) OR use the "Git Gateway" feature if you were hosting on Netlify.
-    *   **For GitHub Pages-only deployment:** It is recommended to use an external lightweight auth server.
-    *   **Alternative for pure static (Editorial Workflow via GitHub UI):** If setting up an auth server is too complex, you can configure Decap CMS to use the `git-gateway` with Netlify Identity (free tier) even if the site is hosted on GitHub Pages, OR simply instruct editors to edit Markdown files directly in GitHub if the team is technical enough.
+Since the CMS uses your GitHub account for authentication, adding new editors is done via GitHub repository permissions:
 
-**Simplest Setup for this Project (Git Backend):**
-The current `public/admin/config.yml` is configured for the `github` backend.
-You need to:
-1.  Update `repo` in `public/admin/config.yml` to your GitHub repository (e.g., `username/repo`).
-2.  Setup an OAuth provider (e.g., deploy a free instance of [this project](https://github.com/vencax/netlify-cms-github-oauth-provider) to Vercel/Heroku) and add the `base_url` to `config.yml`.
+1.  Go to the [GitHub Repository](https://github.com/hmhss/hmhss.github.io).
+2.  Navigate to **Settings** > **Collaborators**.
+3.  Click **Add people**.
+4.  Enter the user's **GitHub username** or **email address**.
+5.  Select **Write** role (or Admin) to allow them to edit content.
+6.  The user will receive an email invitation. Once accepted, they can log in at `/admin`.
 
 ## 📦 Deployment
 
