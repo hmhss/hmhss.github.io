@@ -22,7 +22,7 @@ if (!latestAnnouncement) {
 ---
 
 {latestAnnouncement && (
-  <div id="notification-toast" class="fixed bottom-4 right-4 z-50 max-w-sm w-full bg-white border-l-4 border-burgundy shadow-lg rounded-r-lg transform transition-all duration-500 translate-y-20 opacity-0" role="alert">
+  <div id="notification-toast" data-slug={latestAnnouncement.slug} class="fixed bottom-4 right-4 z-50 max-w-sm w-full bg-white border-l-4 border-burgundy shadow-lg rounded-r-lg transform transition-all duration-500 translate-y-20 opacity-0 hidden" role="alert">
     <div class="p-4 relative">
       <div class="flex items-start">
         <div class="flex-shrink-0">
@@ -34,7 +34,7 @@ if (!latestAnnouncement) {
         </div>
         <div class="ml-3 w-0 flex-1 pt-0.5">
           <p class="text-sm font-medium text-gray-900">
-            {latestAnnouncement.data.category}
+            Recent Announcement
           </p>
           <p class="mt-1 text-sm text-gray-500 line-clamp-2">
             {latestAnnouncement.data.title}
@@ -60,33 +60,54 @@ if (!latestAnnouncement) {
   <script>
     const toast = document.getElementById('notification-toast');
     const dismissBtn = document.getElementById('dismiss-toast');
-    
-    // Check if user has recently dismissed this specific notification (optional, skipping for now based on "on page load" requirement)
-    // If we wanted to persist dismissal, we'd use localStorage. 
-    // The requirement is "auto dismisses in 20 seconds", implies it shows every time but goes away.
+    const readMoreLink = toast?.querySelector('a');
     
     if (toast && dismissBtn) {
-      // Show toast after a small delay
-      setTimeout(() => {
-        toast.classList.remove('translate-y-20', 'opacity-0');
-      }, 1000);
+      const slug = toast.dataset.slug;
+      const storageKey = `seen_announcement_${slug}`;
+      const isSeen = localStorage.getItem(storageKey);
 
-      const hideToast = () => {
-        toast.classList.add('translate-y-20', 'opacity-0');
-        // Remove from DOM after transition
+      // Only show if not previously seen/dismissed
+      if (!isSeen) {
+        // Remove hidden class first to allow display, but keep it transparent/translated for animation
+        toast.classList.remove('hidden');
+        
+        // Show toast after a small delay
         setTimeout(() => {
-          toast.remove();
-        }, 500);
-      };
+          toast.classList.remove('translate-y-20', 'opacity-0');
+        }, 1000);
 
-      // Auto dismiss after 20 seconds
-      const autoDismissTimer = setTimeout(hideToast, 20000);
+        const markAsSeen = () => {
+          localStorage.setItem(storageKey, 'true');
+        };
 
-      // Manual dismiss
-      dismissBtn.addEventListener('click', () => {
-        clearTimeout(autoDismissTimer);
-        hideToast();
-      });
+        const hideToast = () => {
+          markAsSeen();
+          toast.classList.add('translate-y-20', 'opacity-0');
+          // Remove from DOM after transition
+          setTimeout(() => {
+            toast.remove();
+          }, 500);
+        };
+
+        // Auto dismiss after 20 seconds
+        const autoDismissTimer = setTimeout(hideToast, 20000);
+
+        // Manual dismiss
+        dismissBtn.addEventListener('click', () => {
+          clearTimeout(autoDismissTimer);
+          hideToast();
+        });
+
+        // Mark as seen when clicking the link too
+        if (readMoreLink) {
+          readMoreLink.addEventListener('click', () => {
+             markAsSeen();
+             // No need to hideToast immediately as we are navigating away, 
+             // but if it's a SPA navigation or new tab, it's good to have it marked.
+          });
+        }
+      }
     }
   </script>
 )}
