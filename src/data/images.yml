@@ -1,3 +1,6 @@
+# Default Social Sharing Image
+default_social_image: "https://placehold.co/1200x630/6f1d1b/ffe6a7?text=Hebron+Matriculation+Hr.+Sec.+School"
+
 # Placeholders for About Page History Section
 hero_carousel_1: "/images/hebron_carosel_1.jpg"
 hero_carousel_2: "https://placehold.co/1920x1080/6f1d1b/ffe6a7?text=Students+Learning"

@@ -13,7 +13,13 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<Layout title={entry.data.title}>
+<Layout 
+  title={entry.data.title}
+  description={entry.data.summary}
+  image={entry.data.coverImage}
+  type="article"
+  publishDate={entry.data.date}
+>
   <article class="max-w-3xl mx-auto px-4">
     <div class="mb-8 border-b border-gold/20 pb-8">
       {entry.data.coverImage && (
