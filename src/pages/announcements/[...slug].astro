@@ -16,6 +16,13 @@ const { Content } = await entry.render();
 <Layout title={entry.data.title}>
   <article class="max-w-3xl mx-auto px-4">
     <div class="mb-8 border-b border-gold/20 pb-8">
+      {entry.data.coverImage && (
+        <img
+          src={entry.data.coverImage}
+          alt={entry.data.title}
+          class="w-full h-auto rounded-lg shadow-md mb-6 object-cover max-h-[500px]"
+        />
+      )}
       <div class="flex items-center gap-2 mb-4">
          <span class="bg-cream text-burgundy text-xs px-2 py-1 rounded-full uppercase font-bold">{entry.data.category}</span>
          {entry.data.pinned && <span class="bg-burgundy text-white text-xs px-2 py-1 rounded-full uppercase font-bold">Pinned</span>}

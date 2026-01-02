@@ -160,6 +160,7 @@ const sortedBlogPosts = allBlogPosts.sort((a, b) => b.data.date.valueOf() - a.da
             date={post.data.date}
             body={post.data.summary}
             tag={post.data.tags[0]}
+            image={post.data.coverImage}
           />
         )) : <p class="text-gray-500">No news posts yet.</p>}
       </div>

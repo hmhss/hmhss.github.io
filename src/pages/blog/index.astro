@@ -39,6 +39,7 @@ const allTags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
             date={post.data.date}
             body={post.data.summary}
             tag={post.data.tags[0]}
+            image={post.data.coverImage}
           />
         </div>
       ))}
