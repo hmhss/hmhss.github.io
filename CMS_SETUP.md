@@ -96,14 +96,14 @@ If you see this error:
 1.  **Update GitHub App Callback**: 
     *   Go back to your GitHub OAuth App settings (Developer Settings > OAuth Apps > Edit).
     *   **CRITICAL**: Update the **Authorization callback URL** to:
-        `https://netlify-cms-github-oauth-provider-ajitjohnsons-projects.vercel.app/api/callback`
+        `https://netlify-cms-github-oauth-provider-ajitjohnsons-projects.vercel.app/callback`
     *   (The Homepage URL can be your main site: `https://hmhss.github.io`)
     *   Save changes.
 
 2.  **Update Config File**:
     *   I have already updated `public/admin/config.yml` for you.
     *   It now points to `base_url: https://netlify-cms-github-oauth-provider-ajitjohnsons-projects.vercel.app`
-    *   And `auth_endpoint: api/auth` (via Vercel API).
+    *   And `auth_endpoint: auth` (root path).
 
 ## Done!
 
