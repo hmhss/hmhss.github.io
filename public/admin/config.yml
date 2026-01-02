@@ -28,10 +28,10 @@ collections:
     label: "Featured Alumni"
     files:
       - name: "featured_alumni"
-        label: "Featured Alumni"
+        label: "Manage Selection"
         file: "src/data/featuredAlumni.yml"
         fields:
-          - label: "Featured Alumni"
+          - label: "Selected Alumni"
             name: "featured"
             widget: "relation"
             collection: "alumni"
