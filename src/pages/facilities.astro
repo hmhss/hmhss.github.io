@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import BackgroundAnimations from '../components/BackgroundAnimations.astro';
-import images from '../data/images.yml';
+import { images } from '../data/images';
 
 const facilities = [
   {
@@ -67,7 +67,7 @@ const facilities = [
           <!-- Carousel Container -->
           <div class="absolute inset-0 carousel-container">
             {facility.images.map((img, imgIndex) => (
-              <img 
+              <SmartImage 
                 src={img} 
                 alt={`${facility.title} - View ${imgIndex + 1}`} 
                 class={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${imgIndex === 0 ? 'opacity-100' : 'opacity-0'}`}

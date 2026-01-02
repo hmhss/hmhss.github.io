@@ -1,11 +1,13 @@
 ---
+import { Image } from 'astro:assets';
+
 interface Props {
   title: string;
   href: string;
   body?: string;
   date?: Date;
   tag?: string;
-  image?: string;
+  image?: string | ImageMetadata;
 }
 
 const { href, title, body, date, tag, image } = Astro.props;
@@ -14,7 +16,11 @@ const { href, title, body, date, tag, image } = Astro.props;
 <a href={href} class="block bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-100 h-full flex flex-col group">
   {image && (
     <div class="h-48 overflow-hidden bg-gray-200">
-      <img src={image} alt={title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" />
+      {typeof image === 'string' ? (
+        <img src={image} alt={title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" />
+      ) : (
+        <Image src={image} alt={title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+      )}
     </div>
   )}
   <div class="p-6 flex flex-col flex-grow">

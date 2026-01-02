@@ -1,9 +1,8 @@
 ---
-import images from '../data/images.yml';
+import { images } from '../data/images';
 import { getImage } from 'astro:assets';
-import heroImage1 from '../assets/hebron_carosel_1.jpg';
 
-const optimizedHero1 = await getImage({src: heroImage1, format: 'webp'});
+const optimizedHero1 = await getImage({src: images.hero_carousel_1, format: 'webp'});
 ---
 
 <div class="relative w-full h-[600px] md:h-[700px] overflow-hidden bg-dark-brown text-white">

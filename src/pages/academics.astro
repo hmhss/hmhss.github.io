@@ -1,7 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import BackgroundAnimations from '../components/BackgroundAnimations.astro';
-import images from '../data/images.yml';
+import { images } from '../data/images';
+import SmartImage from '../components/SmartImage.astro';
 
 const rankHolders = [
   {
@@ -288,12 +289,12 @@ const rankHolders = [
            {rankHolders.map((student) => (
              <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow group">
                <div class="h-48 overflow-hidden">
-                 <img 
-                   src={student.image} 
-                   alt={student.name} 
-                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                 />
-               </div>
+                <SmartImage 
+                  src={student.image} 
+                  alt={student.name} 
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
                <div class="p-4 text-center">
                  <h3 class="font-bold text-lg text-brown mb-1">{student.name}</h3>
                  <p class="text-burgundy font-bold text-sm mb-1">{student.mark}</p>
