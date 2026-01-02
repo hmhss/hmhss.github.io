@@ -23,12 +23,31 @@ Since the "Deploy Button" can sometimes be confusing or outdated, here is the re
     *   Go to: [https://github.com/vencax/netlify-cms-github-oauth-provider](https://github.com/vencax/netlify-cms-github-oauth-provider)
     *   Click the **Fork** button in the top right corner to copy this repo to your own GitHub account.
 
-2.  **Create a Project in Vercel**:
+2.  **Add `vercel.json` to Your Fork (CRITICAL)**:
+    *   This step fixes the "environment variables not found" issue by forcing the Node.js runtime.
+    *   Go to your forked repository on GitHub (`your-username/netlify-cms-github-oauth-provider`).
+    *   Click **Add file** > **Create new file**.
+    *   Name the file: `vercel.json`
+    *   Paste this content exactly:
+        ```json
+        {
+          "version": 2,
+          "builds": [
+            {
+              "src": "index.js",
+              "use": "@vercel/node"
+            }
+          ]
+        }
+        ```
+    *   Click **Commit changes**.
+
+3.  **Create a Project in Vercel**:
     *   Log in to [Vercel](https://vercel.com/).
     *   Click **Add New...** > **Project**.
-    *   Find the repository you just forked (`netlify-cms-github-oauth-provider`) and click **Import**.
+    *   Find the repository you just forked and click **Import**.
 
-3.  **Add Environment Variables**:
+4.  **Add Environment Variables**:
     *   Go to **Settings** > **Environment Variables**.
     *   Add the following variables:
         *   **Name**: `ORIGINS`
@@ -52,32 +71,39 @@ Since the "Deploy Button" can sometimes be confusing or outdated, here is the re
     *   Go to **Deployments** tab > Click the three dots on the latest deployment > **Redeploy**.
     *   **Copy your new Domain** (if you haven't already): `https://netlify-cms-github-oauth-provider-three.vercel.app`.
 
-### Troubleshooting
-If you see a `500: INTERNAL_SERVER_ERROR` with `Error: process.env.ORIGINS MUST be comma separated list of origins`, it means the `ORIGINS` environment variable is missing or empty in the running deployment.
+## Troubleshooting
 
-1.  **Verify Variable**: Go to Vercel > Settings > Environment Variables. Ensure `ORIGINS` exists with value `*`.
-2.  **Force Redeploy**: Go to Deployments > Click the three dots > **Redeploy**.
-    *   *Note: If redeploying doesn't work, try creating a new deployment by pushing a small change to the Vercel repo or clicking "Promote to Production".*
+### "Vercel Authentication" / 401 Unauthorized
+If you visit the URL and see a Vercel login screen:
+1.  Go to Vercel Project > **Settings** > **Deployment Protection**.
+2.  **Disable** "Vercel Authentication".
+3.  Save.
 
-### Alternative `ORIGINS` Value
-If `hmhss.github.io` still fails, try changing the `ORIGINS` value to `*` (asterisk).
-1.  Go to Vercel > Settings > Environment Variables.
-2.  Edit `ORIGINS` and set it to `*`.
-3.  Go to Deployments > Redeploy.
-This allows any domain to connect, which rules out domain matching issues.
+### "Client ID undefined" / "No code provided"
+If you see `client_id=undefined` in the URL or logs:
+1.  Go to Vercel Project > **Settings** > **Environment Variables**.
+2.  Ensure `OAUTH_CLIENT_ID` and `OAUTH_CLIENT_SECRET` are added.
+3.  **IMPORTANT**: Go to **Deployments** and click **Redeploy** for them to take effect.
+
+### 500: INTERNAL_SERVER_ERROR
+If you see this error:
+1.  It usually means `ORIGINS` variable is missing.
+2.  Add `ORIGINS` = `*` (or `hmhss.github.io`) in Vercel Environment Variables.
+3.  **Redeploy**.
 
 ## Step 3: Connect Everything
 
 1.  **Update GitHub App Callback**: 
     *   Go back to your GitHub OAuth App settings (Developer Settings > OAuth Apps > Edit).
     *   **CRITICAL**: Update the **Authorization callback URL** to:
-        `https://netlify-cms-github-oauth-provider-ajitjohnsons-projects.vercel.app/callback`
+        `https://netlify-cms-github-oauth-provider-ajitjohnsons-projects.vercel.app/api/callback`
     *   (The Homepage URL can be your main site: `https://hmhss.github.io`)
     *   Save changes.
 
 2.  **Update Config File**:
     *   I have already updated `public/admin/config.yml` for you.
     *   It now points to `base_url: https://netlify-cms-github-oauth-provider-ajitjohnsons-projects.vercel.app`
+    *   And `auth_endpoint: api/auth` (via Vercel API).
 
 ## Done!
 
