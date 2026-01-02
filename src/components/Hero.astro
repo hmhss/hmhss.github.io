@@ -1,5 +1,9 @@
 ---
 import images from '../data/images.yml';
+import { getImage } from 'astro:assets';
+import heroImage1 from '../assets/hebron_carosel_1.jpg';
+
+const optimizedHero1 = await getImage({src: heroImage1, format: 'webp'});
 ---
 
 <div class="relative w-full h-[600px] md:h-[700px] overflow-hidden bg-dark-brown text-white">
@@ -9,7 +13,7 @@ import images from '../data/images.yml';
     <div class="hero-slide absolute inset-0 opacity-100 transition-opacity duration-1000" id="vanta-bg"></div>
     
     <!-- Slide 2: Image -->
-    <div class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-1000 bg-cover bg-center" style={`background-image: url('${images.hero_carousel_1}');`}>
+    <div class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-1000 bg-cover bg-center" style={`background-image: url('${optimizedHero1.src}');`}>
       <div class="absolute inset-0 bg-black/50"></div>
     </div>
 
