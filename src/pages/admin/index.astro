@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Content Manager</title>
+  <link rel="stylesheet" href="/admin/admin-style.css">
+</head>
+<body>
+  <!-- Include the script that builds the page and powers Decap CMS -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  
+  <script>
+    // Watch for the Login Button to apply custom styles
+    const observer = new MutationObserver(function(mutations) {
+      const buttons = document.querySelectorAll('button');
+      let isLoginPage = false;
+      
+      buttons.forEach(btn => {
+        if (btn.innerText && btn.innerText.includes('Login with GitHub')) {
+          isLoginPage = true;
+        }
+      });
+
+      if (isLoginPage) {
+        document.body.classList.add('login-page');
+      } else {
+        document.body.classList.remove('login-page');
+      }
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  </script>
+</body>
+</html>

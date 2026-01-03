@@ -8,19 +8,19 @@ interface Props {
 const { target, label, suffix = "" } = Astro.props;
 ---
 
-<div class="counter-item relative p-6 aspect-square flex flex-col justify-center items-center rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm text-center transition-all duration-300 hover:transform hover:-translate-y-1 hover:bg-white/10 group overflow-hidden">
+<div class="counter-item relative p-3 md:p-6 aspect-square flex flex-col justify-center items-center rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm text-center transition-all duration-300 hover:transform hover:-translate-y-1 hover:bg-white/10 group overflow-hidden">
   <!-- Glow effect -->
   <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
   
-  <div class="relative z-10">
-    <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center text-gold group-hover:scale-110 transition-transform duration-300">
+  <div class="relative z-10 w-full">
+    <div class="w-12 h-12 md:w-16 md:h-16 mx-auto mb-3 md:mb-6 flex items-center justify-center text-gold group-hover:scale-110 transition-transform duration-300">
       <slot name="icon" />
     </div>
-    <div class="text-4xl md:text-5xl font-bold text-white mb-2 flex justify-center items-baseline font-serif tracking-tight">
+    <div class="text-3xl md:text-5xl font-bold text-white mb-1 md:mb-2 flex justify-center items-baseline font-serif tracking-tight">
       <span class="counter-value" data-target={target}>0</span>
-      {suffix && <span class="text-2xl ml-1 text-gold/90 font-sans">{suffix}</span>}
+      {suffix && <span class="text-lg md:text-2xl ml-0.5 md:ml-1 text-gold/90 font-sans">{suffix}</span>}
     </div>
-    <h3 class="text-cream/90 font-medium uppercase tracking-widest text-xs md:text-sm">{label}</h3>
+    <h3 class="text-cream/90 font-medium uppercase tracking-widest text-[10px] md:text-sm leading-tight">{label}</h3>
   </div>
 </div>
 
