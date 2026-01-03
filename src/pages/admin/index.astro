@@ -6,7 +6,7 @@
   <title>Content Manager</title>
   <link rel="stylesheet" href="/admin/admin-style.css">
 </head>
-<body>
+<body class="login-page">
   <!-- Include the script that builds the page and powers Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   
@@ -14,19 +14,25 @@
     // Watch for the Login Button to apply custom styles
     const observer = new MutationObserver(function(mutations) {
       const buttons = document.querySelectorAll('button');
-      let isLoginPage = false;
+      let hasLoginButton = false;
+      let hasLogoutButton = false;
       
       buttons.forEach(btn => {
-        if (btn.innerText && btn.innerText.includes('Login with GitHub')) {
-          isLoginPage = true;
+        const text = (btn.innerText || '').toLowerCase();
+        if (text.includes('login with github') || text.includes('logging in')) {
+          hasLoginButton = true;
+        }
+        if (text.includes('log out')) {
+          hasLogoutButton = true;
         }
       });
 
-      if (isLoginPage) {
+      if (hasLoginButton) {
         document.body.classList.add('login-page');
-      } else {
+      } else if (hasLogoutButton) {
         document.body.classList.remove('login-page');
       }
+      // If neither, preserve current state (likely loading transition)
     });
 
     observer.observe(document.body, {

@@ -74,9 +74,7 @@ body.login-page section::after {
 /* Hide Decap/Netlify Branding & Default Logo */
 body.login-page section a[href*="decapcms"],
 body.login-page section a[href*="netlifycms"],
-body.login-page section span:last-child,
 body.login-page img,
-body.login-page section > span,
 body.login-page section > div[class*="Logo"],
 body.login-page svg:not(button svg) {
   display: none !important;
