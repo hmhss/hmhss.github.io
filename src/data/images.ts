@@ -48,7 +48,7 @@ export const images = {
 
   // About Page
   about: {
-    history_founders: "https://placehold.co/600x400/6f1d1b/ffe6a7?text=Founders+Prof.+S.+Johnson+&+Prof.+Angel+Johnson",
+    history_founders: getAsset('Hebron-founders.png'),
     history_early_days_gallery: [
       getAsset( 'hebron-1-IMG_2424.jpg' ),
       getAsset( 'hebron-2-IMG_2426.jpg' ),
