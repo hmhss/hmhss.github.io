@@ -13,7 +13,14 @@
   <script>
     // Watch for the Login Button to apply custom styles
     const observer = new MutationObserver(function(mutations) {
-      const buttons = document.querySelectorAll('button');
+      // 1. Check URL hash - if we have a hash like #/collections, we are definitely logged in
+      if (window.location.hash && window.location.hash.length > 1) {
+        document.body.classList.remove('login-page');
+        return;
+      }
+
+      // 2. Check for buttons and specific elements
+      const buttons = document.querySelectorAll('button, a, span[role="button"]');
       let hasLoginButton = false;
       let hasLogoutButton = false;
       
@@ -32,12 +39,18 @@
       } else if (hasLogoutButton) {
         document.body.classList.remove('login-page');
       }
-      // If neither, preserve current state (likely loading transition)
     });
 
     observer.observe(document.body, {
       childList: true,
       subtree: true
+    });
+
+    // Also check on hash change
+    window.addEventListener('hashchange', () => {
+      if (window.location.hash && window.location.hash.length > 1) {
+        document.body.classList.remove('login-page');
+      }
     });
   </script>
 </body>
