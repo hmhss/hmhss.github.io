@@ -38,14 +38,14 @@ import PhotoStack from '../components/PhotoStack.astro';
 
       <h2 class="text-3xl font-bold text-gray-900 mt-12 mb-8 border-b-2 border-gold/30 pb-2">Our History</h2>
       
-      <div class="space-y-20">
+      <div class="space-y-16">
         <!-- Founding Section -->
         <div class="grid md:grid-cols-2 gap-12 items-center">
           <div class="order-2 md:order-1">
-            <p class="text-lg leading-relaxed mb-6">
+            <p>
               Hebron Matriculation Higher Secondary School was founded in <strong>1986</strong> by <strong>Prof. S. Johnson</strong> and <strong>Prof. Angel Johnson</strong> with a clear educational vision rooted in values, discipline, and holistic development. From its inception, the founders believed that education should extend beyond academic instruction to encompass character formation, moral integrity, and the overall intellectual, social, and emotional development of children.
             </p>
-            <p class="text-lg leading-relaxed">
+            <p>
               Prof. S. Johnson was particularly committed to instilling strong ethical values and life skills in students, emphasizing that true education prepares young minds not only for examinations, but also for responsible citizenship and lifelong learning. This guiding philosophy continues to shape the school’s academic and co-curricular approach.
             </p>
           </div>
@@ -55,23 +55,25 @@ import PhotoStack from '../components/PhotoStack.astro';
               alt="Founders of Hebron School" 
               class="rounded-lg shadow-xl w-full border-4 border-gold/20"
             />
-            <p class="text-center text-sm text-gray-500 mt-2 italic">Founders Prof. S. Johnson & Prof. Angel Johnson</p>
+            <p class="text-center text-sm text-gray-500 mt-3 italic">Founders Prof. S. Johnson & Prof. Angel Johnson</p>
           </div>
         </div>
 
         <!-- Early Days -->
         <div class="grid md:grid-cols-2 gap-12 items-center">
-          <div class="relative h-[300px] w-full">
-            <PhotoStack 
-              images={images.about.history_early_days_gallery || []} 
-              alt="Early days of the school" 
-              class="w-full h-full"
-            />
-            <p class="text-center text-sm text-gray-500 mt-8 italic">The school in its early years (1986)</p>
+          <div>
+            <div class="relative h-[300px] w-full">
+              <PhotoStack 
+                images={images.about.history_early_days_gallery || []} 
+                alt="Early days of the school" 
+                class="w-full h-full"
+              />
+            </div>
+            <p class="text-center text-sm text-gray-500 mt-3 italic">The school in its early years (1986)</p>
           </div>
           <div>
-            <h3 class="text-2xl font-bold text-brown mb-4">Humble Beginnings</h3>
-            <p class="text-lg leading-relaxed">
+            <h3 class="text-2xl font-bold text-brown mb-4 mt-0">Humble Beginnings</h3>
+            <p>
               Starting as a modest institution with a small cohort of students and dedicated teachers, the school quickly gained a reputation for academic rigour and personal attention. The early years were marked by a close-knit community atmosphere where every student was known by name, and parents were active partners in the educational process.
             </p>
           </div>
@@ -80,11 +82,11 @@ import PhotoStack from '../components/PhotoStack.astro';
         <!-- Growth & Expansion -->
         <div class="grid md:grid-cols-2 gap-12 items-center">
           <div class="order-2 md:order-1">
-            <h3 class="text-2xl font-bold text-brown mb-4">Growth & Recognition</h3>
-            <p class="text-lg leading-relaxed mb-4">
+            <h3 class="text-2xl font-bold text-brown mb-4 mt-0">Growth & Recognition</h3>
+            <p class="mb-4">
               Over the decades, Hebron has grown exponentially in infrastructure and student strength. In 1999, we celebrated the graduation of our first batch of Higher Secondary students, marking a significant milestone in our journey.
             </p>
-            <p class="text-lg leading-relaxed">
+            <p>
               The school expanded its facilities to include modern science laboratories, a well-stocked library, and computer centers, keeping pace with educational advancements. Our consistent record of academic excellence in board examinations established Hebron as one of the premier institutions in Nagercoil.
             </p>
           </div>
@@ -94,7 +96,7 @@ import PhotoStack from '../components/PhotoStack.astro';
               alt="First batch graduation" 
               class="rounded-lg shadow-xl w-full border-4 border-burgundy/20"
             />
-            <p class="text-center text-sm text-gray-500 mt-2 italic">First Batch Graduation (1999)</p>
+            <p class="text-center text-sm text-gray-500 mt-3 italic">First Batch Graduation (1999)</p>
           </div>
         </div>
 
@@ -106,11 +108,11 @@ import PhotoStack from '../components/PhotoStack.astro';
               alt="Current Administration" 
               class="rounded-lg shadow-xl w-full border-4 border-gold/20"
             />
-            <p class="text-center text-sm text-gray-500 mt-2 italic">Dr. Nirmal Johnson & Mrs. Merina Nirmal</p>
+            <p class="text-center text-sm text-gray-500 mt-3 italic">Dr. Nirmal Johnson & Mrs. Merina Nirmal</p>
           </div>
           <div>
-            <h3 class="text-2xl font-bold text-brown mb-4">Carrying the Torch Forward</h3>
-            <p class="text-lg leading-relaxed">
+            <h3 class="text-2xl font-bold text-brown mb-4 mt-0">Carrying the Torch Forward</h3>
+            <p>
               Today, the legacy is carried forward by <strong>Dr. Nirmal Johnson</strong> and <strong>Mrs. Merina Nirmal</strong>. Under their dynamic leadership, the school has embraced modern pedagogical techniques while retaining its core traditional values. They have introduced smart classrooms, expanded sports facilities, and emphasized extracurricular participation, ensuring Hebron students are well-rounded individuals ready for the global stage.
             </p>
           </div>
