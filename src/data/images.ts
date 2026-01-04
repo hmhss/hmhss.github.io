@@ -1,4 +1,5 @@
 import hebronCarousel1 from '../assets/hebron_carosel_1.jpg';
+import hebronSchoolCommunity from '../assets/hebron-DSC04139.jpg';
 
 export const images = {
   // Social Sharing Images (Open Graph / Twitter)
@@ -14,6 +15,8 @@ export const images = {
   hero_carousel_1: hebronCarousel1,
   hero_carousel_2: "https://placehold.co/1920x1080/6f1d1b/ffe6a7?text=Students+Learning",
   hero_carousel_3: "https://placehold.co/1920x1080/432818/ffe6a7?text=School+Front",
+  
+  home_school_community: hebronSchoolCommunity,
 
   about_history_founders: "https://placehold.co/600x400/6f1d1b/ffe6a7?text=Founders+Prof.+S.+Johnson+&+Prof.+Angel+Johnson",
   about_history_early_days: "https://placehold.co/600x400/99582a/ffe6a7?text=Early+Days+of+Hebron+1986",
