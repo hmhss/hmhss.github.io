@@ -60,8 +60,8 @@ import PhotoStack from '../components/PhotoStack.astro';
         </div>
 
         <!-- Early Days -->
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-          <div>
+        <div class="grid md:grid-cols-5 gap-12 items-center">
+          <div class="md:col-span-3">
             <div class="relative w-full aspect-[3/2]">
               <PhotoStack 
                 images={images.about.history_early_days_gallery || []} 
@@ -71,7 +71,7 @@ import PhotoStack from '../components/PhotoStack.astro';
             </div>
             <p class="text-center text-sm text-gray-500 mt-3 italic">The school in its early years (1986)</p>
           </div>
-          <div>
+          <div class="md:col-span-2">
             <h3 class="text-2xl font-bold text-brown mb-4 mt-0">Humble Beginnings</h3>
             <p>
               Starting as a modest institution with a small cohort of students and dedicated teachers, the school quickly gained a reputation for academic rigour and personal attention. The early years were marked by a close-knit community atmosphere where every student was known by name, and parents were active partners in the educational process.
