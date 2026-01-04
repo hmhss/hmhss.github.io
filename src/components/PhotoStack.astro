@@ -25,7 +25,7 @@ const validImages = images.filter((img): img is string | ImageMetadata => !!img)
       <Image 
         src={img} 
         alt={`${alt} ${index + 1}`} 
-        class="absolute inset-0 w-full h-full object-cover block"
+        class="absolute inset-0 w-full h-full object-cover object-center block scale-110"
         draggable="false"
       />
       <!-- Shine effect -->
