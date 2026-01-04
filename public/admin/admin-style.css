@@ -112,3 +112,42 @@ body.login-page button:hover {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* CMS Content Styles (Preview & Editor) */
+/* These apply to the preview iframe and potentially the editor if scoped correctly */
+.prose p, 
+.frame-content p,
+.slate-editor p,
+[data-slate-editor] p,
+/* Fallback for preview iframe where we want global p styles */
+body:not(.login-page) p {
+  margin-bottom: 1.25em;
+  line-height: 1.6;
+}
+
+body:not(.login-page) h1,
+body:not(.login-page) h2,
+body:not(.login-page) h3,
+body:not(.login-page) h4 {
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+body:not(.login-page) ul,
+body:not(.login-page) ol {
+  margin-bottom: 1.25em;
+  padding-left: 1.5em;
+}
+
+body:not(.login-page) li {
+  margin-bottom: 0.5em;
+}
+
+body:not(.login-page) blockquote {
+  border-left: 4px solid #e5e7eb;
+  padding-left: 1em;
+  font-style: italic;
+  margin-bottom: 1.25em;
+}

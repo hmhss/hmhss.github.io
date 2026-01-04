@@ -11,6 +11,11 @@
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   
   <script>
+    // Register the custom styles for the preview pane
+    CMS.registerPreviewStyle("/admin/admin-style.css");
+  </script>
+
+  <script>
     // Watch for the Login Button to apply custom styles
     const observer = new MutationObserver(function(mutations) {
       // 1. Check URL hash - if we have a hash like #/collections, we are definitely logged in
