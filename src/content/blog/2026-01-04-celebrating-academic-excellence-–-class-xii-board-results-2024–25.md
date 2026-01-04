@@ -11,10 +11,8 @@ draft: false
 ## Celebrating Academic Excellence 🎓
 
 Hebron Matriculation Higher Secondary School, Nagercoil, proudly congratulates our Class XII students for their exceptional performance in the **2024–25 Board Examinations**. These results stand as a testament to the students’ dedication, the commitment of our faculty, and the continued support of parents and well-wishers.
-<br>
 
 ---
-<br>
 
 ## 🏆 Overall School Toppers
 
@@ -26,7 +24,6 @@ Hebron Matriculation Higher Secondary School, Nagercoil, proudly congratulates o
 
 
 ---
-<br>
 
 ## 📊 Subject-wise Performance (Overall Toppers)
 
@@ -42,7 +39,6 @@ Hebron Matriculation Higher Secondary School, Nagercoil, proudly congratulates o
 | Tamil       | 96  |
 
 ---
-<br>
 
 ### Pooja S – 588/600
 
@@ -56,7 +52,6 @@ Hebron Matriculation Higher Secondary School, Nagercoil, proudly congratulates o
 | English    | 92  |
 
 ---
-<br>
 
 ### Jemy Hadlin H – 586/600
 
@@ -70,7 +65,6 @@ Hebron Matriculation Higher Secondary School, Nagercoil, proudly congratulates o
 | English     | 92  |
 
 ---
-<br>
 
 ## 🌟 Subject Toppers & Centum Achievers
 
@@ -84,7 +78,6 @@ Hebron Matriculation Higher Secondary School, Nagercoil, proudly congratulates o
 | Computer Science  | Auslis Jackshine S V, Antonette Snow Neorah, Tarun Rakhul N, Jesinth J S |
 
 ---
-<br>
 
 ### 🥈 High Achievers (99 Marks)
 
@@ -97,7 +90,6 @@ Hebron Matriculation Higher Secondary School, Nagercoil, proudly congratulates o
 | Computer Science | Ewan |
 
 ---
-<br>
 
 ## 👏 A Moment of Pride
 
@@ -106,6 +98,5 @@ These remarkable outcomes reflect Hebron’s continued emphasis on **conceptual 
 We wish them every success as they move forward into higher education and future careers.
 
 ---
-<br>
 
 *Hebron Matriculation Higher Secondary School, Nagercoil*
