@@ -5,6 +5,7 @@ import Card from '../components/Card.astro';
 import Hero from '../components/Hero.astro';
 import StatsCounter from '../components/StatsCounter.astro';
 import BackgroundAnimations from '../components/BackgroundAnimations.astro';
+import PhotoStack from '../components/PhotoStack.astro';
 import stats from '../data/stats.yml';
 import { images } from '../data/images';
 import { Image } from 'astro:assets';
@@ -72,12 +73,11 @@ const sortedBlogPosts = allBlogPosts.sort((a, b) => b.data.date.valueOf() - a.da
           Know About Our School
         </a>
       </div>
-      <div class="relative h-[400px] rounded-2xl overflow-hidden shadow-xl group border-4 border-cream">
-        <div class="absolute inset-0 bg-gray-200 animate-pulse"></div>
-        <Image 
-          src={images.home_school_community} 
-          alt="School Community" 
-          class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+      <div class="relative h-[400px] rounded-2xl overflow-visible">
+        <PhotoStack 
+          images={images.home.school_community_gallery || []}
+          alt="School Community"
+          class="w-full h-full"
         />
       </div>
     </div>

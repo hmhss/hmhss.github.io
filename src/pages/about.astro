@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import BackgroundAnimations from '../components/BackgroundAnimations.astro';
 import { images } from '../data/images';
 import SmartImage from '../components/SmartImage.astro';
+import PhotoStack from '../components/PhotoStack.astro';
 ---
 
 <Layout title="About Us">
@@ -49,54 +50,84 @@ import SmartImage from '../components/SmartImage.astro';
             </p>
           </div>
           <div class="order-1 md:order-2">
-            <div class="relative group">
-              <div class="absolute -inset-2 bg-burgundy/10 rounded-xl transform rotate-2 group-hover:rotate-1 transition-transform duration-300"></div>
-              <SmartImage src={images.about_history_founders} alt="Founders Prof. S. Johnson and Prof. Angel Johnson" class="relative rounded-lg shadow-lg w-full h-auto object-cover aspect-[4/3] border-4 border-white" />
-            </div>
-            <p class="text-sm text-center text-gray-500 mt-3 italic">Founders Prof. S. Johnson & Prof. Angel Johnson</p>
+            <SmartImage 
+              src={images.about.history_founders} 
+              alt="Founders of Hebron School" 
+              class="rounded-lg shadow-xl w-full border-4 border-gold/20"
+            />
+            <p class="text-center text-sm text-gray-500 mt-2 italic">Founders Prof. S. Johnson & Prof. Angel Johnson</p>
           </div>
         </div>
 
-        <!-- Growth Section -->
+        <!-- Early Days -->
         <div class="grid md:grid-cols-2 gap-12 items-center">
-          <div class="order-1 md:order-2">
-            <div class="bg-cream/30 p-8 rounded-2xl border border-gold/20">
-              <p class="text-xl leading-relaxed font-medium text-burgundy/80">
-                The school grew steadily in stature and academic scope, reaching a significant milestone in <strong>1999</strong> with the graduation of its first batch of students, marking Hebron’s emergence as a trusted institution of secondary education in Nagercoil.
-              </p>
-            </div>
+          <div class="relative h-[300px] w-full">
+            <PhotoStack 
+              images={images.about.history_early_days_gallery || []} 
+              alt="Early days of the school" 
+              class="w-full h-full"
+            />
+            <p class="text-center text-sm text-gray-500 mt-8 italic">The school in its early years (1986)</p>
           </div>
-          <div class="order-2 md:order-1">
-             <div class="relative group">
-              <div class="absolute -inset-2 bg-gold/10 rounded-xl transform -rotate-2 group-hover:-rotate-1 transition-transform duration-300"></div>
-              <SmartImage src={images.about_history_growth} alt="Hebron School Early Growth" class="relative rounded-lg shadow-lg w-full h-auto object-cover aspect-[4/3] border-4 border-white" />
-            </div>
-          </div>
-        </div>
-
-        <!-- Administration Section -->
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-          <div class="order-2 md:order-1">
+          <div>
+            <h3 class="text-2xl font-bold text-brown mb-4">Humble Beginnings</h3>
             <p class="text-lg leading-relaxed">
-              Since <strong>2013</strong>, the school has been administered by <strong>Dr. Nirmal Johnson</strong> and <strong>Mrs. Merina Nirmal</strong>. Prior to assuming administrative responsibilities at Hebron, Dr. Nirmal Johnson served as a professor, and Mrs. Merina Nirmal as a teacher, bringing with them strong academic foundations and firsthand classroom experience. Under their leadership, Hebron has continued to grow while remaining firmly anchored to its founding values.
+              Starting as a modest institution with a small cohort of students and dedicated teachers, the school quickly gained a reputation for academic rigour and personal attention. The early years were marked by a close-knit community atmosphere where every student was known by name, and parents were active partners in the educational process.
+            </p>
+          </div>
+        </div>
+
+        <!-- Growth & Expansion -->
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div class="order-2 md:order-1">
+            <h3 class="text-2xl font-bold text-brown mb-4">Growth & Recognition</h3>
+            <p class="text-lg leading-relaxed mb-4">
+              Over the decades, Hebron has grown exponentially in infrastructure and student strength. In 1999, we celebrated the graduation of our first batch of Higher Secondary students, marking a significant milestone in our journey.
+            </p>
+            <p class="text-lg leading-relaxed">
+              The school expanded its facilities to include modern science laboratories, a well-stocked library, and computer centers, keeping pace with educational advancements. Our consistent record of academic excellence in board examinations established Hebron as one of the premier institutions in Nagercoil.
             </p>
           </div>
           <div class="order-1 md:order-2">
-            <div class="relative group">
-              <div class="absolute -inset-2 bg-brown/10 rounded-xl transform rotate-2 group-hover:rotate-1 transition-transform duration-300"></div>
-              <img src={images.about_history_current_admin} alt="Dr. Nirmal Johnson and Mrs. Merina Nirmal" class="relative rounded-lg shadow-lg w-full h-auto object-cover aspect-[4/3] border-4 border-white" />
-            </div>
-             <p class="text-sm text-center text-gray-500 mt-3 italic">Administrators Dr. Nirmal Johnson & Mrs. Merina Nirmal</p>
+            <SmartImage 
+              src={images.about.history_growth} 
+              alt="First batch graduation" 
+              class="rounded-lg shadow-xl w-full border-4 border-burgundy/20"
+            />
+            <p class="text-center text-sm text-gray-500 mt-2 italic">First Batch Graduation (1999)</p>
           </div>
         </div>
 
-        <!-- Today Section -->
-        <div class="bg-gray-50 rounded-2xl p-8 md:p-12 text-center">
-           <p class="text-lg md:text-xl leading-relaxed mb-8 max-w-3xl mx-auto">
-            Today, Hebron Matriculation Higher Secondary School serves over <strong>1,600 students</strong>, supported by more than <strong>80 teaching and non-teaching staff</strong>, and is strengthened by a community of over <strong>10,000 proud alumni</strong> across diverse professional fields. As the school continues to evolve with changing educational needs, it remains committed to nurturing well-rounded individuals prepared to excel academically and contribute meaningfully to society.
-          </p>
-          <SmartImage src={images.about_history_campus} alt="Hebron MHSS Campus Today" class="w-full h-64 md:h-96 object-cover rounded-xl shadow-lg border-4 border-white mx-auto" />
+        <!-- Current Era -->
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <SmartImage 
+              src={images.about.history_current_admin} 
+              alt="Current Administration" 
+              class="rounded-lg shadow-xl w-full border-4 border-gold/20"
+            />
+            <p class="text-center text-sm text-gray-500 mt-2 italic">Dr. Nirmal Johnson & Mrs. Merina Nirmal</p>
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold text-brown mb-4">Carrying the Torch Forward</h3>
+            <p class="text-lg leading-relaxed">
+              Today, the legacy is carried forward by <strong>Dr. Nirmal Johnson</strong> and <strong>Mrs. Merina Nirmal</strong>. Under their dynamic leadership, the school has embraced modern pedagogical techniques while retaining its core traditional values. They have introduced smart classrooms, expanded sports facilities, and emphasized extracurricular participation, ensuring Hebron students are well-rounded individuals ready for the global stage.
+            </p>
+          </div>
         </div>
+        
+        <!-- Campus Today -->
+        <div class="text-center max-w-4xl mx-auto">
+             <SmartImage 
+              src={images.about.history_campus} 
+              alt="Hebron Campus Today" 
+              class="rounded-lg shadow-xl w-full border-4 border-cream mb-6"
+            />
+            <p class="text-lg leading-relaxed">
+              From a small building to a sprawling campus, Hebron Matriculation Higher Secondary School stands today as a testament to the vision of its founders and the dedication of its staff, continuing to illuminate the lives of thousands of students.
+            </p>
+        </div>
+
       </div>
 
     </div>

@@ -1,0 +1,97 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  images: (string | ImageMetadata | undefined)[];
+  alt: string;
+  class?: string;
+}
+
+const { images, alt, class: className } = Astro.props;
+const validImages = images.filter((img): img is string | ImageMetadata => !!img);
+---
+
+<div class={`photo-stack relative group cursor-pointer select-none ${className}`}>
+  {validImages.map((img, index) => (
+    <div 
+      class="photo-card absolute inset-0 w-full h-full transition-all duration-500 ease-in-out shadow-xl rounded-2xl overflow-hidden border-4 border-cream bg-white"
+      style={`
+        z-index: ${validImages.length - index};
+        transform: rotate(${index % 2 === 0 ? 2 : -2}deg) scale(${1 - index * 0.02});
+        top: ${index * 4}px;
+      `}
+      data-index={index}
+    >
+      <Image 
+        src={img} 
+        alt={`${alt} ${index + 1}`} 
+        class="w-full h-full object-cover"
+      />
+      <!-- Shine effect -->
+      <div class="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+    </div>
+  ))}
+  
+  <!-- Helper text -->
+  <div class="absolute bottom-4 right-4 z-50 bg-black/50 text-white text-xs px-3 py-1 rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+    Click to browse
+  </div>
+</div>
+
+<script>
+  function setupPhotoStacks() {
+    const stacks = document.querySelectorAll('.photo-stack');
+    
+    stacks.forEach(stack => {
+      const cards = Array.from(stack.querySelectorAll('.photo-card')) as HTMLElement[];
+      let currentIndex = 0;
+      let isAnimating = false;
+      const totalCards = cards.length;
+
+      stack.addEventListener('click', () => {
+        if (isAnimating || totalCards <= 1) return;
+        isAnimating = true;
+
+        // The card currently at the top (visually)
+        const currentCard = cards[currentIndex];
+        
+        // Animate it out to the right
+        currentCard.style.transform = 'translateX(120%) rotate(20deg)';
+        currentCard.style.opacity = '0';
+        
+        // Prepare the next index
+        const nextIndex = (currentIndex + 1) % totalCards;
+
+        // Move other cards up
+        cards.forEach((card, i) => {
+          if (i === currentIndex) return; // Skip the one animating out
+          
+          // Calculate new position in the stack (0 is top)
+          // Current logical position: (i - currentIndex + totalCards) % totalCards
+          // New logical position: (i - nextIndex + totalCards) % totalCards
+          const newPos = (i - nextIndex + totalCards) % totalCards;
+          
+          card.style.zIndex = `${totalCards - newPos}`;
+          card.style.transform = `rotate(${newPos % 2 === 0 ? 2 : -2}deg) scale(${1 - newPos * 0.02})`;
+          card.style.top = `${newPos * 4}px`;
+        });
+
+        // Reset the moved card to the back
+        setTimeout(() => {
+          const newPos = totalCards - 1; // Back of the stack
+          currentCard.style.zIndex = '1';
+          currentCard.style.transform = `rotate(${newPos % 2 === 0 ? 2 : -2}deg) scale(${1 - newPos * 0.02})`;
+          currentCard.style.top = `${newPos * 4}px`;
+          currentCard.style.opacity = '1';
+          
+          currentIndex = nextIndex;
+          isAnimating = false;
+        }, 500); // Wait for transition to finish
+      });
+    });
+  }
+
+  // Run on load and after view transitions
+  setupPhotoStacks();
+  document.addEventListener('astro:page-load', setupPhotoStacks);
+</script>

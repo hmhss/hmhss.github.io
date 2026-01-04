@@ -1,0 +1,292 @@
+---
+import { getImage } from 'astro:assets';
+
+interface Props {
+  images: (string | ImageMetadata | undefined)[];
+  id?: string;
+}
+
+const { images: rawImages, id = "gallery-carousel" } = Astro.props;
+
+const resolveImage = async (image: any) => {
+  if (!image) return null;
+  if (typeof image === "string") return image;
+  const optimized = await getImage({src: image, format: 'webp', width: 1600});
+  return optimized.src;
+};
+
+const validImages = [];
+for (const img of rawImages) {
+  const url = await resolveImage(img);
+  if (url) validImages.push(url);
+}
+
+const displayImages = validImages.length > 0 ? validImages : [];
+---
+
+{displayImages.length > 0 && (
+  <div class="relative w-full group" id={id}>
+    
+    <!-- Main Carousel Container -->
+    <div class="relative w-full h-[350px] md:h-[600px] bg-black/5 rounded-2xl overflow-hidden shadow-2xl border border-white/20">
+      
+      <!-- Scroll Track -->
+      <div 
+        class="carousel-track flex w-full h-full overflow-x-auto snap-x snap-mandatory scrollbar-hide scroll-smooth"
+        style="-webkit-overflow-scrolling: touch;"
+      >
+        {displayImages.map((img, index) => (
+          <div class="w-full h-full flex-none snap-center relative flex items-center justify-center bg-gray-900 overflow-hidden" data-index={index}>
+            
+            <!-- Dark Overlay for better text contrast if needed (optional) -->
+            <div class="absolute inset-0 bg-black/10 z-10 pointer-events-none"></div>
+
+            <!-- Main Image -->
+            <img 
+                src={img} 
+                class="relative w-full h-full object-cover z-0 transition-transform duration-700 cursor-zoom-in hover:scale-105" 
+                alt={`Gallery image ${index + 1}`}
+                loading={index === 0 ? "eager" : "lazy"}
+                onclick={`document.getElementById('${id}').dispatchEvent(new CustomEvent('open-lightbox', { detail: ${index} }))`}
+            />
+          </div>
+        ))}
+      </div>
+
+      <!-- Navigation Arrows -->
+      <button class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/90 hover:text-burgundy text-white p-3 rounded-full backdrop-blur-md transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 z-20 prev-btn shadow-lg" aria-label="Previous slide">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+      </button>
+      
+      <button class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/90 hover:text-burgundy text-white p-3 rounded-full backdrop-blur-md transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 z-20 next-btn shadow-lg" aria-label="Next slide">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+      </button>
+
+      <!-- Indicators -->
+      <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20 px-4 py-2 bg-black/20 backdrop-blur-md rounded-full">
+         {displayImages.map((_, idx) => (
+           <button 
+             class="w-2 h-2 rounded-full transition-all bg-white/50 hover:bg-white indicator-btn" 
+             data-index={idx}
+             aria-label={`Go to slide ${idx + 1}`}
+           ></button>
+         ))}
+      </div>
+      
+    </div>
+
+    <!-- Lightbox Modal (unchanged logic) -->
+    <div class="lightbox fixed inset-0 z-[100] bg-black/95 hidden flex flex-col items-center justify-center opacity-0 transition-opacity duration-300" role="dialog" aria-modal="true">
+        <button class="absolute top-4 right-4 text-white/70 hover:text-white p-2 z-[110] lightbox-close bg-white/10 hover:bg-white/20 rounded-full transition-colors">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+        <button class="absolute left-6 top-1/2 -translate-y-1/2 text-white p-3 z-[110] bg-white/10 hover:bg-white/20 rounded-full transition-colors lightbox-prev" aria-label="Previous image">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+        </button>
+        <button class="absolute right-6 top-1/2 -translate-y-1/2 text-white p-3 z-[110] bg-white/10 hover:bg-white/20 rounded-full transition-colors lightbox-next" aria-label="Next image">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+        </button>
+        <div class="relative w-full h-full p-4 flex items-center justify-center" id="lightbox-wrapper">
+            <img src="" class="lightbox-img max-w-full max-h-full object-contain shadow-2xl rounded-sm" alt="Full screen view" />
+        </div>
+    </div>
+
+  </div>
+)}
+
+<script define:vars={{ id, autoPlayDuration: 5000 }}>
+  (function() {
+    const root = document.getElementById(id);
+    if (!root) return;
+
+    const track = root.querySelector('.carousel-track');
+    const prevBtn = root.querySelector('.prev-btn');
+    const nextBtn = root.querySelector('.next-btn');
+    const indicators = root.querySelectorAll('.indicator-btn');
+    const slides = root.querySelectorAll('.snap-center'); // or check child count
+    
+    // Lightbox
+    const lightbox = root.querySelector('.lightbox');
+    const lightboxImg = root.querySelector('.lightbox-img');
+    const lightboxClose = root.querySelector('.lightbox-close');
+    const lightboxPrev = root.querySelector('.lightbox-prev');
+    const lightboxNext = root.querySelector('.lightbox-next');
+
+    let currentIndex = 0;
+    const total = slides.length;
+    let autoPlayInterval;
+    let lightboxIndex = 0;
+
+    // --- Navigation Logic ---
+    
+    const updateIndicators = (index) => {
+        indicators.forEach((ind, idx) => {
+            if (idx === index) {
+                ind.classList.remove('bg-white/50', 'w-2');
+                ind.classList.add('bg-white', 'w-6');
+            } else {
+                ind.classList.add('bg-white/50', 'w-2');
+                ind.classList.remove('bg-white', 'w-6');
+            }
+        });
+    };
+
+    const scrollToSlide = (index) => {
+        if (!track) return;
+        const width = track.clientWidth;
+        track.scrollTo({
+            left: width * index,
+            behavior: 'smooth'
+        });
+        currentIndex = index;
+        updateIndicators(index);
+    };
+
+    const nextSlide = () => {
+        const nextIndex = (currentIndex + 1) % total;
+        scrollToSlide(nextIndex);
+    };
+
+    const prevSlide = () => {
+        const prevIndex = (currentIndex - 1 + total) % total;
+        scrollToSlide(prevIndex);
+    };
+
+    // --- Event Listeners ---
+
+    if (prevBtn) prevBtn.addEventListener('click', () => {
+        stopAutoPlay();
+        prevSlide();
+        startAutoPlay();
+    });
+
+    if (nextBtn) nextBtn.addEventListener('click', () => {
+        stopAutoPlay();
+        nextSlide();
+        startAutoPlay();
+    });
+
+    indicators.forEach((btn, idx) => {
+        btn.addEventListener('click', () => {
+            stopAutoPlay();
+            scrollToSlide(idx);
+            startAutoPlay();
+        });
+    });
+
+    // Sync scroll (e.g. touch swipe) with indicators
+    if (track) {
+        track.addEventListener('scroll', () => {
+            const width = track.clientWidth;
+            if (width === 0) return;
+            const newIndex = Math.round(track.scrollLeft / width);
+            if (newIndex !== currentIndex && newIndex >= 0 && newIndex < total) {
+                currentIndex = newIndex;
+                updateIndicators(currentIndex);
+            }
+        }, { passive: true });
+    }
+
+    // Auto Play
+    function startAutoPlay() {
+        if (autoPlayInterval) clearInterval(autoPlayInterval);
+        autoPlayInterval = setInterval(nextSlide, autoPlayDuration);
+    }
+
+    function stopAutoPlay() {
+        if (autoPlayInterval) clearInterval(autoPlayInterval);
+    }
+
+    // Start
+    updateIndicators(0);
+    startAutoPlay();
+
+    // Pause on hover
+    root.addEventListener('mouseenter', stopAutoPlay);
+    root.addEventListener('mouseleave', startAutoPlay);
+
+    // --- Lightbox Logic ---
+    
+    function setLightboxImage(index) {
+        const slide = slides[index];
+        if (!slide) return;
+        const imgEl = slide.querySelector('img');
+        if (!imgEl || !lightboxImg) return;
+        lightboxImg.src = imgEl.src;
+    }
+
+    function openLightbox(index) {
+        if (!lightbox || !lightboxImg) return;
+        lightboxIndex = typeof index === 'number' ? index : currentIndex;
+        setLightboxImage(lightboxIndex);
+        lightbox.classList.remove('hidden');
+        // Force reflow
+        void lightbox.offsetWidth;
+        lightbox.classList.remove('opacity-0');
+        document.body.style.overflow = 'hidden';
+        stopAutoPlay();
+    }
+
+    function closeLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.add('opacity-0');
+        setTimeout(() => {
+            lightbox.classList.add('hidden');
+            if (lightboxImg) lightboxImg.src = '';
+            document.body.style.overflow = '';
+            startAutoPlay();
+        }, 300);
+    }
+
+    // Custom Event for inline onclick
+    root.addEventListener('open-lightbox', (e) => {
+        openLightbox(e.detail);
+    });
+
+    if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+    if (lightboxPrev) lightboxPrev.addEventListener('click', () => {
+        lightboxIndex = (lightboxIndex - 1 + total) % total;
+        setLightboxImage(lightboxIndex);
+    });
+    if (lightboxNext) lightboxNext.addEventListener('click', () => {
+        lightboxIndex = (lightboxIndex + 1) % total;
+        setLightboxImage(lightboxIndex);
+    });
+    
+    if (lightbox) {
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox || e.target.closest('#lightbox-wrapper') === e.target) {
+                closeLightbox();
+            }
+        });
+    }
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (lightbox && !lightbox.classList.contains('hidden')) {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') {
+                lightboxIndex = (lightboxIndex - 1 + total) % total;
+                setLightboxImage(lightboxIndex);
+            }
+            if (e.key === 'ArrowRight') {
+                lightboxIndex = (lightboxIndex + 1) % total;
+                setLightboxImage(lightboxIndex);
+            }
+        }
+    });
+
+  })();
+</script>
+
+<style>
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .scrollbar-hide {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+  }
+</style>

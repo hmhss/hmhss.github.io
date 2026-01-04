@@ -3,34 +3,35 @@ import Layout from '../layouts/Layout.astro';
 import BackgroundAnimations from '../components/BackgroundAnimations.astro';
 import { images } from '../data/images';
 import SmartImage from '../components/SmartImage.astro';
+import PhotoStack from '../components/PhotoStack.astro';
 
 const rankHolders = [
   {
     name: "Priya Sharma",
     year: "2023-24",
     mark: "495/500",
-    image: images.rank_holder_1,
+    image: images.academics.rank_holder_1,
     details: "State 2nd Rank"
   },
   {
     name: "Rahul Kumar",
     year: "2023-24",
     mark: "492/500",
-    image: images.rank_holder_2,
+    image: images.academics.rank_holder_2,
     details: "District 1st Rank"
   },
   {
     name: "Anita Raj",
     year: "2022-23",
     mark: "490/500",
-    image: images.rank_holder_3,
+    image: images.academics.rank_holder_3,
     details: "Centum in Maths"
   },
   {
     name: "Karthik S",
     year: "2022-23",
     mark: "488/500",
-    image: images.rank_holder_4,
+    image: images.academics.rank_holder_4,
     details: "Centum in Science"
   }
 ];
@@ -276,6 +277,46 @@ const rankHolders = [
         </div>
       </section>
  
+      <!-- Guest Lectures & Career Guidance -->
+      <section>
+        <div class="flex items-center gap-4 mb-8">
+           <h2 class="text-3xl font-bold text-burgundy">Career Guidance & Guest Lectures</h2>
+           <div class="h-px bg-gray-200 flex-1"></div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+           <div class="space-y-6">
+              <p class="text-lg text-gray-700 leading-relaxed">
+                We believe in opening doors to the future. Our school regularly invites distinguished speakers, industry experts, and alumni from various fields—Medicine, Engineering, Civil Services, Arts, and more—to interact with our students.
+              </p>
+              <p class="text-lg text-gray-700 leading-relaxed">
+                These sessions expose children to the vast opportunities in higher education and professional careers, inspiring them to dream big and plan their path to success early on.
+              </p>
+              <ul class="space-y-3 mt-4">
+                {[
+                  "Expert talks from Medical & Engineering professionals",
+                  "Career counseling sessions for higher secondary students",
+                  "Interactive workshops on emerging technologies",
+                  "Motivational sessions by successful alumni"
+                ].map((item) => (
+                  <li class="flex items-center gap-3 text-gray-700 font-medium">
+                     <svg class="w-5 h-5 text-burgundy" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                     {item}
+                  </li>
+                ))}
+              </ul>
+           </div>
+           
+           <div class="relative h-[400px] w-full max-w-md mx-auto">
+             <PhotoStack 
+               images={images.academics.guest_lectures || []} 
+               alt="Guest Lectures and Career Guidance Events" 
+               class="w-full h-full"
+             />
+           </div>
+        </div>
+      </section>
+
        <!-- Rank Holders -->
        <section>
          <div class="flex items-center gap-4 mb-8">
