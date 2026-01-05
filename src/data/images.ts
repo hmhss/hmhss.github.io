@@ -69,7 +69,7 @@ export const images = {
 
   // Academics (Rank Holders)
   academics: {
-    rank_holder_1: "https://placehold.co/400x400/6f1d1b/ffe6a7?text=Rank+1",
+    rank_holder_1: getAsset('hebron-state-rank.jpg'),
     rank_holder_2: "https://placehold.co/400x400/99582a/ffe6a7?text=Rank+2",
     rank_holder_3: "https://placehold.co/400x400/432818/ffe6a7?text=Rank+3",
     rank_holder_4: "https://placehold.co/400x400/bb9457/432818?text=Rank+4",

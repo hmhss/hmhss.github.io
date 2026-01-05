@@ -5,20 +5,28 @@ interface Props {
   images: (string | ImageMetadata | undefined)[];
   alt: string;
   class?: string;
+  bordered?: boolean;
+  backgroundClass?: string;
+  rounded?: boolean;
+  fit?: 'cover' | 'contain';
+  offsetY?: number;
 }
 
-const { images, alt, class: className } = Astro.props;
+const { images, alt, class: className, bordered = true, backgroundClass = 'bg-white', rounded = true, fit = 'cover', offsetY } = Astro.props;
 const validImages = images.filter((img): img is string | ImageMetadata => !!img);
+const fitClass = fit === 'contain' ? 'object-contain' : 'object-cover';
+const scaleClassDesktop = fit === 'contain' ? '' : 'scale-125';
 ---
 
-<div class={`mobile-slider block sm:hidden relative select-none w-full h-full rounded-2xl overflow-hidden border-4 border-cream bg-white ${className}`}>
+<div class={`mobile-slider block sm:hidden relative select-none w-full h-full ${rounded ? 'rounded-2xl' : ''} overflow-hidden ${backgroundClass} ${bordered ? 'border-4 border-cream' : ''} ${className}`}>
   <div class="slides flex w-full h-full transition-transform duration-300 ease-out">
     {validImages.map((img, index) => (
       <div class="shrink-0 w-full h-full relative">
         <Image 
           src={img} 
           alt={`${alt} ${index + 1}`} 
-          class="absolute inset-0 w-full h-full object-cover object-center block"
+          class={`absolute inset-0 w-full h-full ${fitClass} object-center block`}
+          style={offsetY ? `transform: translateY(${offsetY}px);` : undefined}
           draggable="false"
         />
       </div>
@@ -31,7 +39,7 @@ const validImages = images.filter((img): img is string | ImageMetadata => !!img)
 <div class={`photo-stack hidden sm:block relative group sm:cursor-pointer cursor-default select-none ${className}`}>
   {validImages.map((img, index) => (
     <div 
-      class={`photo-card absolute inset-0 w-full h-full transition-all duration-500 ease-in-out shadow-xl rounded-2xl overflow-hidden border-4 border-cream bg-white ${index === 0 ? '' : 'hidden sm:block'}`}
+      class={`photo-card absolute inset-0 w-full h-full transition-all duration-500 ease-in-out shadow-xl ${rounded ? 'rounded-2xl' : ''} overflow-hidden ${backgroundClass} ${bordered ? 'border-4 border-cream' : ''} ${index === 0 ? '' : 'hidden sm:block'}`}
       style={`
         z-index: ${validImages.length - index};
         transform: rotate(${index % 2 === 0 ? 2 : -2}deg) scale(${1 - index * 0.02});
@@ -42,7 +50,8 @@ const validImages = images.filter((img): img is string | ImageMetadata => !!img)
       <Image 
         src={img} 
         alt={`${alt} ${index + 1}`} 
-        class="absolute inset-0 w-full h-full object-cover object-center block scale-125"
+        class={`absolute inset-0 w-full h-full ${fitClass} object-center block ${scaleClassDesktop}`}
+        style={offsetY ? `transform: translateY(${offsetY}px);` : undefined}
         draggable="false"
       />
       <!-- Shine effect -->

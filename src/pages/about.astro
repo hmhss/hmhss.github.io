@@ -8,7 +8,7 @@ import PhotoStack from '../components/PhotoStack.astro';
 
 <Layout title="About Us">
   <BackgroundAnimations />
-  <div class="max-w-4xl mx-auto relative z-10 px-4 py-8">
+  <div class="max-w-4xl mx-auto relative z-10 px-4 py-6">
     <h1 class="text-4xl font-bold mb-8 text-burgundy">About Hebron MHSS</h1>
     
     <div class="prose lg:prose-lg text-gray-700 max-w-none">
@@ -16,7 +16,7 @@ import PhotoStack from '../components/PhotoStack.astro';
         Established with a vision to provide quality education, Hebron Matriculation Higher Secondary School has been serving the community of Nagercoil for decades, nurturing young minds into responsible citizens.
       </p>
 
-      <div class="grid md:grid-cols-2 gap-8 my-12">
+      <div class="grid md:grid-cols-2 gap-6 my-8">
         <div class="bg-cream p-8 rounded-lg border-2 border-burgundy/10 shadow-sm">
           <h2 class="text-2xl font-bold text-burgundy mb-4 mt-0">Our Vision</h2>
           <p class="mb-0">
@@ -31,16 +31,16 @@ import PhotoStack from '../components/PhotoStack.astro';
         </div>
       </div>
 
-      <h2 class="text-3xl font-bold text-gray-900 mt-12 mb-6">Principal's Message</h2>
+      <h2 class="text-3xl font-bold text-gray-900 mt-8 mb-4">Principal's Message</h2>
       <blockquote class="border-l-4 border-burgundy pl-4 italic text-gray-600 bg-gray-50 py-4 pr-4 rounded-r-lg shadow-sm">
         "Education is not just about academic grades; it is about shaping the character of a child. At Hebron, we believe in the holistic development of every student. We strive to provide an environment where children are encouraged to think, explore, and learn."
       </blockquote>
 
-      <h2 class="text-3xl font-bold text-gray-900 mt-12 mb-8 border-b-2 border-gold/30 pb-2">Our History</h2>
+      <h2 class="text-3xl font-bold text-gray-900 mt-8 mb-6 border-b-2 border-gold/30 pb-2">Our History</h2>
       
-      <div class="space-y-16">
+      <div class="space-y-8">
         <!-- Founding Section -->
-        <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
           <div class="order-2 md:order-1">
             <p>
               Hebron Matriculation Higher Secondary School was founded in <strong>1986</strong> by <strong>Prof. S. Johnson</strong> and <strong>Prof. Angel Johnson</strong> with a clear educational vision rooted in values, discipline, and holistic development. From its inception, the founders believed that education should extend beyond academic instruction to encompass character formation, moral integrity, and the overall intellectual, social, and emotional development of children.
@@ -54,18 +54,18 @@ import PhotoStack from '../components/PhotoStack.astro';
           </div>
           <div class="order-1 md:order-2">
               <div class="space-y-4">
-                <div class="relative w-full aspect-[3/2]">
+                <div class="w-full">
                   <SmartImage 
                     src={images.about.history_founders_2} 
                     alt="Founders of Hebron School" 
-                    class="absolute inset-0 w-full h-full object-cover rounded-lg shadow-xl border-4 border-gold/20"
+                    class="w-full h-auto object-contain object-top rounded-lg shadow-xl border-4 border-gold/20"
                   />
                 </div>
-              <div class="relative w-full aspect-[3/2]">
+              <div class="w-full">
                 <SmartImage 
                   src={images.about.history_founders} 
                   alt="Founders of Hebron School" 
-                  class="absolute inset-0 w-full h-full object-cover rounded-lg shadow-xl border-4 border-gold/20"
+                  class="w-full h-auto object-contain object-top rounded-lg shadow-xl border-4 border-gold/20"
                 />
               </div>
               </div>
@@ -74,13 +74,18 @@ import PhotoStack from '../components/PhotoStack.astro';
         </div>
 
         <!-- Early Days -->
-        <div class="grid md:grid-cols-5 gap-12 items-center">
+        <div class="grid md:grid-cols-5 gap-8 items-center">
           <div class="md:col-span-3">
-            <div class="relative h-[400px] rounded-2xl overflow-visible">
+            <div class="relative h-[400px] overflow-visible">
               <PhotoStack 
                 images={images.about.history_early_days_gallery || []} 
                 alt="Early days of the school" 
                 class="w-full h-full"
+                bordered={false}
+                backgroundClass="bg-gray-50"
+                rounded={false}
+                fit="contain"
+                offsetY={-32}
               />
             </div>
             <p class="text-center text-sm text-gray-500 mt-3 italic">The school in its early years (1986)</p>
@@ -94,7 +99,7 @@ import PhotoStack from '../components/PhotoStack.astro';
         </div>
 
         <!-- Growth & Expansion -->
-        <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
           <div class="order-2 md:order-1">
             <h3 class="text-2xl font-bold text-brown mb-4 mt-0">Growth & Recognition</h3>
             <p class="mb-4">
@@ -115,7 +120,7 @@ import PhotoStack from '../components/PhotoStack.astro';
         </div>
 
         <!-- Current Era -->
-        <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
           <div>
             <SmartImage 
               src={images.about.history_current_admin} 
@@ -127,7 +132,7 @@ import PhotoStack from '../components/PhotoStack.astro';
           <div>
             <h3 class="text-2xl font-bold text-brown mb-4 mt-0">Carrying the Torch Forward</h3>
             <p>
-              Today, the legacy is carried forward by <strong>Dr. Nirmal Johnson</strong> and <strong>Mrs. Merina Nirmal</strong>. Under their dynamic leadership, the school has embraced modern pedagogical techniques while retaining its core traditional values. They have introduced smart classrooms, expanded sports facilities, and emphasized extracurricular participation, ensuring Hebron students are well-rounded individuals ready for the global stage.
+              Today, the legacy is carried forward by <strong>Dr. Nirmal Johnson</strong> and <strong>Mrs. Merina Nirmal</strong>. Under their dynamic leadership, the school has embraced modern pedagogical techniques while retaining its core traditional values. They have introduced smart classrooms, established in‑house training for competitive exams, and regularly invite distinguished speakers to broaden students’ world view, fostering academic excellence with holistic development.
             </p>
           </div>
         </div>
