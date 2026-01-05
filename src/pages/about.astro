@@ -50,12 +50,21 @@ import PhotoStack from '../components/PhotoStack.astro';
             </p>
           </div>
           <div class="order-1 md:order-2">
-            <div class="relative w-full aspect-[3/2]">
-              <SmartImage 
-                src={images.about.history_founders_2} 
-                alt="Founders of Hebron School" 
-                class="absolute inset-0 w-full h-full object-cover rounded-lg shadow-xl border-4 border-gold/20"
-              />
+            <div class="space-y-4">
+              <div class="relative w-full aspect-[3/2]">
+                <SmartImage 
+                  src={images.about.history_founders_2} 
+                  alt="Founders of Hebron School" 
+                  class="absolute inset-0 w-full h-full object-cover rounded-lg shadow-xl border-4 border-gold/20"
+                />
+              </div>
+              <div class="relative w-full aspect-[3/2]">
+                <SmartImage 
+                  src={images.about.history_founders} 
+                  alt="Founders of Hebron School" 
+                  class="absolute inset-0 w-full h-full object-cover rounded-lg shadow-xl border-4 border-gold/20"
+                />
+              </div>
             </div>
             <p class="text-center text-sm text-gray-500 mt-3 italic">Founders Prof. S. Johnson & Prof. Angel Johnson</p>
           </div>
