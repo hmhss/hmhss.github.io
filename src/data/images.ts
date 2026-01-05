@@ -49,6 +49,7 @@ export const images = {
   // About Page
   about: {
     history_founders: getAsset('Hebron-founders.png'),
+    history_founders_2: getAsset('hebron-founders-2.png'),
     history_early_days_gallery: [
       getAsset( 'hebron-1-IMG_2424.jpg' ),
       getAsset( 'hebron-2-IMG_2426.jpg' ),
