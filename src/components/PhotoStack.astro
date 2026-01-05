@@ -11,6 +11,23 @@ const { images, alt, class: className } = Astro.props;
 const validImages = images.filter((img): img is string | ImageMetadata => !!img);
 ---
 
+<div class={`mobile-slider block sm:hidden relative select-none ${className}`}>
+  <div class="slides flex w-full h-full transition-transform duration-300 ease-out rounded-2xl overflow-hidden border-4 border-cream bg-white">
+    {validImages.map((img, index) => (
+      <div class="shrink-0 w-full h-full relative">
+        <Image 
+          src={img} 
+          alt={`${alt} ${index + 1}`} 
+          class="absolute inset-0 w-full h-full object-cover object-center block"
+          draggable="false"
+        />
+      </div>
+    ))}
+  </div>
+  <button type="button" data-prev class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 text-white rounded-full w-8 h-8 grid place-items-center">‹</button>
+  <button type="button" data-next class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 text-white rounded-full w-8 h-8 grid place-items-center">›</button>
+</div>
+
 <div class={`photo-stack relative group sm:cursor-pointer cursor-default select-none ${className}`}>
   {validImages.map((img, index) => (
     <div 
@@ -41,6 +58,46 @@ const validImages = images.filter((img): img is string | ImageMetadata => !!img)
 
 <script>
   function setupPhotoStacks() {
+    const mobileSliders = document.querySelectorAll('.mobile-slider');
+    mobileSliders.forEach(slider => {
+      const slides = slider.querySelector('.slides') as HTMLElement | null;
+      const prev = slider.querySelector('[data-prev]') as HTMLElement | null;
+      const next = slider.querySelector('[data-next]') as HTMLElement | null;
+      if (!slides) return;
+      const total = slides.children.length;
+      let index = 0;
+      function update() {
+        slides.style.transform = `translateX(-${index * 100}%)`;
+      }
+      update();
+      prev?.addEventListener('click', () => {
+        if (index > 0) {
+          index--;
+          update();
+        }
+      });
+      next?.addEventListener('click', () => {
+        if (index < total - 1) {
+          index++;
+          update();
+        }
+      });
+      let startX = 0;
+      slider.addEventListener('touchstart', e => {
+        startX = (e as TouchEvent).touches[0].clientX;
+      });
+      slider.addEventListener('touchend', e => {
+        const dx = (e as TouchEvent).changedTouches[0].clientX - startX;
+        const t = 40;
+        if (dx > t && index > 0) {
+          index--;
+          update();
+        } else if (dx < -t && index < total - 1) {
+          index++;
+          update();
+        }
+      });
+    });
     const stacks = document.querySelectorAll('.photo-stack');
     
     stacks.forEach(stack => {
