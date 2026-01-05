@@ -11,8 +11,8 @@ const { images, alt, class: className } = Astro.props;
 const validImages = images.filter((img): img is string | ImageMetadata => !!img);
 ---
 
-<div class={`mobile-slider block sm:hidden relative select-none ${className}`}>
-  <div class="slides flex w-full h-full transition-transform duration-300 ease-out rounded-2xl overflow-hidden border-4 border-cream bg-white">
+<div class={`mobile-slider block sm:hidden relative select-none w-full h-full rounded-2xl overflow-hidden border-4 border-cream bg-white ${className}`}>
+  <div class="slides flex w-full h-full transition-transform duration-300 ease-out">
     {validImages.map((img, index) => (
       <div class="shrink-0 w-full h-full relative">
         <Image 
