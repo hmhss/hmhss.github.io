@@ -65,10 +65,19 @@ if (!latestAnnouncement) {
     if (toast && dismissBtn) {
       const slug = toast.dataset.slug;
       const storageKey = `seen_announcement_${slug}`;
-      const isSeen = localStorage.getItem(storageKey);
+      const clickedKey = `clicked_announcement_${slug}`;
+      
+      const lastSeen = localStorage.getItem(storageKey);
+      const hasClicked = localStorage.getItem(clickedKey);
+      const currentTime = new Date().getTime();
+      const RESHOW_DELAY = 3 * 60 * 60 * 1000; // 3 hours in milliseconds
 
-      // Only show if not previously seen/dismissed
-      if (!isSeen) {
+      // Show if:
+      // 1. Never clicked AND
+      // 2. Either never seen OR seen more than 6 hours ago
+      const shouldShow = !hasClicked && (!lastSeen || (currentTime - parseInt(lastSeen) > RESHOW_DELAY));
+
+      if (shouldShow) {
         // Remove hidden class first to allow display, but keep it transparent/translated for animation
         toast.classList.remove('hidden');
         
@@ -77,36 +86,34 @@ if (!latestAnnouncement) {
           toast.classList.remove('translate-y-20', 'opacity-0');
         }, 1000);
 
-        const markAsSeen = () => {
-          localStorage.setItem(storageKey, 'true');
+        // Update last seen timestamp
+        localStorage.setItem(storageKey, currentTime.toString());
+
+        const markAsClicked = () => {
+          localStorage.setItem(clickedKey, 'true');
         };
 
         const hideToast = () => {
-          markAsSeen();
           toast.classList.add('translate-y-20', 'opacity-0');
           // Remove from DOM after transition
           setTimeout(() => {
-            toast.remove();
+            toast.classList.add('hidden');
           }, 500);
         };
 
-        // Auto dismiss after 20 seconds
+        // Auto dismiss after 20 seconds (without marking as clicked)
         const autoDismissTimer = setTimeout(hideToast, 20000);
 
-        // Manual dismiss
+        // Manual dismiss (just hides for now, will reshow after delay)
         dismissBtn.addEventListener('click', () => {
           clearTimeout(autoDismissTimer);
           hideToast();
         });
 
-        // Mark as seen when clicking the link too
-        if (readMoreLink) {
-          readMoreLink.addEventListener('click', () => {
-             markAsSeen();
-             // No need to hideToast immediately as we are navigating away, 
-             // but if it's a SPA navigation or new tab, it's good to have it marked.
-          });
-        }
+        // Mark as clicked if user interacts with the link
+        readMoreLink?.addEventListener('click', () => {
+          markAsClicked();
+        });
       }
     }
   </script>
