@@ -11,10 +11,10 @@ const { images, alt, class: className } = Astro.props;
 const validImages = images.filter((img): img is string | ImageMetadata => !!img);
 ---
 
-<div class={`photo-stack relative group cursor-pointer select-none ${className}`}>
+<div class={`photo-stack relative group sm:cursor-pointer cursor-default select-none ${className}`}>
   {validImages.map((img, index) => (
     <div 
-      class="photo-card absolute inset-0 w-full h-full transition-all duration-500 ease-in-out shadow-xl rounded-2xl overflow-hidden border-4 border-cream bg-white"
+      class={`photo-card absolute inset-0 w-full h-full transition-all duration-500 ease-in-out shadow-xl rounded-2xl overflow-hidden border-4 border-cream bg-white ${index === 0 ? '' : 'hidden sm:block'}`}
       style={`
         z-index: ${validImages.length - index};
         transform: rotate(${index % 2 === 0 ? 2 : -2}deg) scale(${1 - index * 0.02});
@@ -34,7 +34,7 @@ const validImages = images.filter((img): img is string | ImageMetadata => !!img)
   ))}
   
   <!-- Helper text -->
-  <div class="absolute bottom-4 right-4 z-50 bg-black/50 text-white text-xs px-3 py-1 rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+  <div class="hidden sm:block absolute bottom-4 right-4 z-50 bg-black/50 text-white text-xs px-3 py-1 rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
     Click to browse
   </div>
 </div>
@@ -48,6 +48,14 @@ const validImages = images.filter((img): img is string | ImageMetadata => !!img)
       let currentIndex = 0;
       let isAnimating = false;
       const totalCards = cards.length;
+
+      const isMobile = window.matchMedia('(max-width: 640px)').matches;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (isMobile || reducedMotion) {
+        stack.classList.add('mobile-optimized');
+        return;
+      }
 
       stack.addEventListener('click', () => {
         if (isAnimating || totalCards <= 1) return;
