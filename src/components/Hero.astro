@@ -34,15 +34,12 @@ for (const img of rawImages) {
 <div class="relative w-full h-[600px] md:h-[700px] overflow-hidden bg-dark-brown text-white">
   <!-- Carousel Backgrounds -->
   <div id="hero-carousel" class="absolute inset-0 z-0">
-    <!-- Slide 1: Vanta Animation -->
-    <div class="hero-slide absolute inset-0 opacity-100 transition-opacity duration-1000" id="vanta-bg"></div>
-    
-    <!-- Image Slides -->
-    {validHeroImages.map((url) => (
-      <div class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-1000 bg-cover bg-center" style={`background-image: url('${url}');`}>
+    {validHeroImages.map((url, index) => (
+      <div class={`hero-slide absolute inset-0 transition-opacity duration-1000 bg-cover bg-center ${index === 0 ? 'opacity-100' : 'opacity-0'}`} style={`background-image: url('${url}');`}>
         <div class="absolute inset-0 bg-black/50"></div>
       </div>
     ))}
+    <div class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-1000" id="vanta-bg"></div>
   </div>
 
   <!-- Content Overlay -->
@@ -121,10 +118,10 @@ for (const img of rawImages) {
 
   <!-- Carousel Indicators (Optional) -->
   <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
-    <button class="w-3 h-3 rounded-full bg-white opacity-100 carousel-indicator" data-slide="0"></button>
     {validHeroImages.map((_, index) => (
-      <button class="w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100 transition-opacity carousel-indicator" data-slide={index + 1}></button>
+      <button class={`w-3 h-3 rounded-full bg-white ${index === 0 ? 'opacity-100' : 'opacity-50'} hover:opacity-100 transition-opacity carousel-indicator`} data-slide={index}></button>
     ))}
+    <button class="w-3 h-3 rounded-full bg-white opacity-50 hover:opacity-100 transition-opacity carousel-indicator" data-slide={validHeroImages.length}></button>
   </div>
 </div>
 

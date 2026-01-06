@@ -30,7 +30,7 @@ export const images = {
     hero_carousel_4: getAsset('hebron-20241115_130054.jpg'),
     hero_carousel_5: getAsset('hebron-DSC01793-1.jpg'),
     hero_carousel_6: getAsset('hebron-block-3.png'),
-    hero_carousel_7: undefined,
+    hero_carousel_7: getAsset('teachers.jpg'),
     hero_carousel_8: undefined,
     hero_carousel_9: undefined,
     hero_carousel_10: undefined,
@@ -64,7 +64,7 @@ export const images = {
     ],
     history_growth: getAsset('hebron-first_batch.jpg'),
     history_current_admin: getAsset('hebron-DSC01892.jpg'),
-    history_campus: getAsset('hebron-DSC04139.png'),
+    history_campus: getAsset('hebron-main-entrance.png'),
   },
 
   // Academics (Rank Holders)
@@ -73,11 +73,14 @@ export const images = {
     rank_holder_2: "https://placehold.co/400x400/99582a/ffe6a7?text=Rank+2",
     rank_holder_3: "https://placehold.co/400x400/432818/ffe6a7?text=Rank+3",
     rank_holder_4: "https://placehold.co/400x400/bb9457/432818?text=Rank+4",
+    correspondent_prize: getAsset('prize.jpg'),
     guest_lectures: [
       getAsset('hebron-invited-talk.jpg'),
-      getAsset('hebron-invited-talk-1.jpg'),
+      getAsset( 'hebron-invited-talk-1.jpg' ),
+      getAsset('invited speakers.jpg'),
       getAsset( 'hebron-invited-talk-2.jpg' ),
       getAsset( 'hebron-invited-talk-3.jpg' ),
+
     ],
   },
 

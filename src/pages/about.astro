@@ -10,7 +10,11 @@ import PhotoStack from '../components/PhotoStack.astro';
   <BackgroundAnimations />
   <div class="max-w-4xl mx-auto relative z-10 px-4 py-6">
     <h1 class="text-4xl font-bold mb-8 text-burgundy">About Hebron MHSS</h1>
-    
+    <SmartImage 
+      src={images.about.history_campus} 
+      alt="Hebron Campus Today" 
+      class="rounded-lg shadow-xl w-full border-4 border-cream mb-8"
+    />
     <div class="prose lg:prose-lg text-gray-700 max-w-none">
       <p class="lead text-xl text-gray-600 mb-8">
         Established with a vision to provide quality education, Hebron Matriculation Higher Secondary School has been serving the community of Nagercoil for decades, nurturing young minds into responsible citizens.
@@ -139,11 +143,6 @@ import PhotoStack from '../components/PhotoStack.astro';
         
         <!-- Campus Today -->
         <div class="text-center max-w-4xl mx-auto">
-             <SmartImage 
-              src={images.about.history_campus} 
-              alt="Hebron Campus Today" 
-              class="rounded-lg shadow-xl w-full border-4 border-cream mb-6"
-            />
             <p class="text-lg leading-relaxed">
               From a small building to a sprawling campus, Hebron Matriculation Higher Secondary School stands today as a testament to the vision of its founders and the dedication of its staff, continuing to illuminate the lives of thousands of students.
             </p>
