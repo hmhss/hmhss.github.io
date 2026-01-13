@@ -39,7 +39,7 @@ Hebron Matriculation Higher Secondary School, Nagercoil, proudly congratulates o
 
 - - -
 
-### Pooja S – 588/600
+### Pooja S – 590/600
 
 | Subject     | Marks |
 | ----------- | ----- |
@@ -52,7 +52,7 @@ Hebron Matriculation Higher Secondary School, Nagercoil, proudly congratulates o
 
 - - -
 
-### Jemy Hadlin H – 586/600
+### Jemy Hadlin H – 590/600
 
 | Subject     | Marks |
 | ----------- | ----- |
