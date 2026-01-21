@@ -5,7 +5,7 @@ tags:
   - Academics
 summary: Outstanding performance by Hebron Matriculation Higher Secondary School
   students in the Class XII Board Examinations.
-coverImage: /uploads/hebron-toppers-2025.png
+coverImage: /uploads/12th-2025-result.jpeg
 draft: false
 ---
 ## Celebrating Academic Excellence 🎓
@@ -39,7 +39,7 @@ Hebron Matriculation Higher Secondary School, Nagercoil, proudly congratulates o
 
 - - -
 
-### Pooja S – 588/600
+### Pooja S – 590/600
 
 | Subject     | Marks |
 | ----------- | ----- |
@@ -52,7 +52,7 @@ Hebron Matriculation Higher Secondary School, Nagercoil, proudly congratulates o
 
 - - -
 
-### Jemy Hadlin H – 586/600
+### Jemy Hadlin H – 590/600
 
 | Subject     | Marks |
 | ----------- | ----- |

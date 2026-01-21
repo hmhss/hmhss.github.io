@@ -63,7 +63,7 @@ export const images = {
       getAsset('hebron-10-IMG_2433.jpg'),
     ],
     history_growth: getAsset('hebron-first_batch.jpg'),
-    history_current_admin: getAsset('hebron-DSC01892.jpg'),
+    history_current_admin: getAsset('hebron_correspondent.jpg'),
     history_campus: getAsset('hebron-main-entrance.png'),
   },
 
