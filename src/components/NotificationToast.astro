@@ -3,7 +3,14 @@ import { getCollection } from 'astro:content';
 
 // Get all announcements
 const allAnnouncements = await getCollection('announcements', ({ data }) => {
-  return import.meta.env.PROD ? data.draft !== true : true;
+  const isPublished = import.meta.env.PROD ? data.draft !== true : true;
+  
+  // Filter out announcements older than 1 week, unless they are pinned
+  const oneWeekAgo = new Date();
+  oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+  const isRecent = data.date >= oneWeekAgo;
+  
+  return isPublished && (data.pinned || isRecent);
 });
 
 // Sort by pinned status (pinned first) and then by date (newest first)
