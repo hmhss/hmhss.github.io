@@ -5,7 +5,7 @@ tags:
   - Academics
 summary: Outstanding performance by Hebron Matriculation Higher Secondary School
   students in the Class XII Board Examinations.
-coverImage: /uploads/12th-2025-result.jpeg
+coverImage: /uploads/12th-2025-toppers-first.jpeg
 draft: false
 ---
 ## Celebrating Academic Excellence 🎓
