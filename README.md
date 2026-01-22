@@ -22,7 +22,7 @@ This repository contains the source code for the Hebron MHSS website, built with
 
 *   **Dynamic Content:** Managed via Decap CMS (Announcements, Blog Posts, Alumni Profiles).
 *   **Notification Toast:** Automatically displays the latest announcement on page load.
-    *   *Behavior:* Appears after 1s, auto-dismisses after 20s. Persists "seen" status locally so users aren't pestered by the same announcement.
+    *   *Behavior:* Shows recent announcements (less than 1 week old) or pinned ones. Appears after 1s, re-appears every 3 hours unless clicked.
 *   **Responsive Design:** Mobile-first approach using Tailwind CSS.
 *   **Performance:** Static generation for fast load times, with Google Analytics integration.
 *   **SEO Friendly:** Sitemap generation and meta tag management.
