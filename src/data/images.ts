@@ -111,6 +111,11 @@ export const images = {
       getAsset( 'hebron-schoolday-4.jpg' ),
       getAsset( 'hebron-school-day-5.jpg' ),
       getAsset( 'hebron-schoolD.jpg' ),
+      getAsset( 'hebron-A1.jpg' ),
+      getAsset( 'hebron-A2.jpg' ),
+      getAsset( 'hebron-A3.jpg' ),
+      getAsset( 'hebron-A4.jpg' ),
+      getAsset( 'hebron-A5.jpg' ),
     ]
   },
 
